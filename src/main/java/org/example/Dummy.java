@@ -8,4 +8,8 @@ public class Dummy {
     public int subtractNum(int a, int b) {
         return a + b;
     }
+
+    public int multiplyNum(int a, int b) {
+        return a * b;
+    }
 }
