@@ -13,4 +13,13 @@ public class DummyTest {
         // When
         assertEquals(13, underTest.addNums(7, 6));
     }
+
+    @Test
+    public void subtractAdd() {
+        // Given
+        Dummy underTest = new Dummy();
+
+        // When
+        assertEquals(1, underTest.subtractNum(7, 6));
+    }
 }
