@@ -18,7 +18,7 @@ This application serves as an automated file organizer for the desktop. Based on
 
 ### 4. Exception Handling
 - Handles anomalies, such as an unrecognized prefix.
-- Sends native OS notifications in exception cases.
+- Sends native OS notifications in exception cases or email (haven't decided yet).
 
 ### 5. Operating Hours
 - Only operates on weekdays from 9 AM to 5 PM.
@@ -76,3 +76,16 @@ This application serves as an automated file organizer for the desktop. Based on
 #### Desktop (Java built-in)
 - Allows interactions with the host environment.
 - [Java Desktop API](https://docs.oracle.com/javase/8/docs/api/java/awt/Desktop.html)
+
+## Continuous Integration & Testing
+
+### Jenkins
+
+This project integrates **Jenkins** for continuous integration and testing. A Jenkins pipeline is set up to automatically activate on every Pull Request (PR). The pipeline ensures:
+
+- **Unit Tests**: Run against the latest code changes to verify their correctness.
+- **Integration Tests**: Ensure the application's components work seamlessly together.
+- **Consistency**: Tests are run in a consistent environment to prevent discrepancies between development environments.
+- **Reporting**: Any failures or issues during the CI process are promptly reported, ensuring only quality code gets merged.
+
+For more details on Jenkins and its setup, visit [Jenkins Official Website](https://www.jenkins.io/).
