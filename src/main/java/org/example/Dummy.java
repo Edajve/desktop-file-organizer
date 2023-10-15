@@ -1,6 +1,6 @@
 package org.example;
 
-public class DummyTest {
+public class Dummy {
     public int addNums(int a, int b) {
         return a + b;
     }
