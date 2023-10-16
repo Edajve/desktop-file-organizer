@@ -1,17 +1,28 @@
 package org.example;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.example.src.constants.DirectoryPaths;
-import org.example.src.structure.Directory;
+import org.example.src.constants.Ignore;
 
-import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import static org.example.src.structure.Directory.directoryToMap;
 
 public class Main {
-    public static void main(String[] args) {
-        Path basePath = Paths.get(DirectoryPaths.ROOT_DIRECTORY);
-        Directory directory = new Directory("01-vivid-seats", 0);
-        File file = new File(String.valueOf(basePath));
-        System.out.println( directory.buildDirectoryTree(file, 0));
+    public static void main(String[] args) throws IOException {
+        Path startDir = Paths.get(DirectoryPaths.ROOT_DIRECTORY);
+        List<String> directoriesToOmit = Collections.singletonList(Ignore.DirectoryName.CODE);
+
+        Map<String, Object> dirStructure = directoryToMap(startDir, directoriesToOmit, startDir);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonStructure = gson.toJson(dirStructure);
+        System.out.println(jsonStructure);
     }
 }

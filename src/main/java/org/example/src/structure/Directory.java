@@ -1,10 +1,13 @@
 package org.example.src.structure;
 
-import org.example.src.constants.Ignore;
-
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Directory {
     private final String name;
@@ -14,12 +17,6 @@ public class Directory {
     public Directory(String name, int level) {
         this.name = name;
         this.level = level;
-        this.subdirectories = new ArrayList<>();
-    }
-
-    public Directory(String name) {
-        this.name = name;
-        this.level = 2;
         this.subdirectories = new ArrayList<>();
     }
 
@@ -39,16 +36,25 @@ public class Directory {
         subdirectories.add(dir);
     }
 
-    public Directory buildDirectoryTree(File rootFile, int level) {
-        Directory directory = new Directory(rootFile.getName(), level);
+    public static Map<String, Object> directoryToMap(Path dir, List<String> directoriesToOmit, Path root) throws IOException {
+        Map<String, Object> dirMap = new HashMap<>();
+        Map<String, Object> subDirs = new HashMap<>();
 
-        for (File file : rootFile.listFiles()) {
-            if (file.isDirectory() && !file.getName().equals(Ignore.DirectoryName.CODE)) {
-                directory.addSubdirectory(buildDirectoryTree(file, level + 1));
+        dirMap.put("path", root.relativize(dir).toString());
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path path : stream) {
+                if (Files.isDirectory(path) && !directoriesToOmit.contains(path.getFileName().toString())) {
+                    subDirs.put(path.getFileName().toString(), directoryToMap(path, directoriesToOmit, root));
+                }
             }
         }
 
-        return directory;
+        if (!subDirs.isEmpty()) {
+            dirMap.put("subdirectories", subDirs);
+        }
+
+        return dirMap;
     }
 
     @Override
