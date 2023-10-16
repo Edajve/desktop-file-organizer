@@ -1,13 +1,19 @@
 package org.example.src.Scanners;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.src.constants.DirectoryPaths;
 import org.example.src.constants.Ignore;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class DesktopScan {
     private static final Logger logger = LogManager.getLogger(DesktopScan.class);
@@ -47,5 +53,11 @@ public class DesktopScan {
             existing.clear();
             existing.addAll(current);
         }
+    }
+
+    public void moveFolder(Path startingPoint, Path destination) throws IOException {
+        String formattedString = String.format("File '%s' at path '%s' was moved to path '%s'...", startingPoint.getFileName(), startingPoint, destination);
+        logger.info(formattedString);
+        Files.move(startingPoint, destination, REPLACE_EXISTING);
     }
 }

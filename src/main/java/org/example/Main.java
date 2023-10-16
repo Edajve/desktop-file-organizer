@@ -17,7 +17,16 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) throws IOException {
         DesktopScan scan = new DesktopScan();
-        scan.scanDesktop();
+//        scan.scanDesktop();
+
+        Path targetFile = Paths.get("/Users/dajve.echols/Desktop/copiedFile");
+        Path targetDestination = Paths.get("/Users/dajve.echols/Desktop/test_folder/copiedFile");
+
+        scan.moveFolder(targetFile, targetDestination);
+
+
+
+        // this builds the current directory
 //        Path rootDirectory = Paths.get(DirectoryPaths.ROOT_DIRECTORY);
 //        List<String> directoriesToOmit = Collections.singletonList(Ignore.DirectoryName.CODE);
 //
