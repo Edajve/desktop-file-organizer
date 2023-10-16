@@ -12,7 +12,6 @@ public class DesktopScanTest {
     @Test
     public void populatePrivateMemberIfDoesNotMatch_WhenListMatch_ExistingListShouldNotUpdate() {
         // Given
-        DesktopScan underTest = new DesktopScan();
         List<File> current = new ArrayList<>();
         List<File> existing = new ArrayList<>();
 
@@ -35,5 +34,24 @@ public class DesktopScanTest {
                         new File("B"),
                         new File("C")
                 ));
+    }
+
+    @Test
+    public void populatePrivateMemberIfDoesNotMatch_WhenListAreNotMatch_ExistingListShouldUpdate() {
+        // Given
+        List<File> current = new ArrayList<>();
+        List<File> existing = new ArrayList<>();
+
+        current.add(new File("A"));
+
+        existing.add(new File("X"));
+        existing.add(new File("Y"));
+        existing.add(new File("Z"));
+
+        // When
+        DesktopScan.populatePrivateMemberIfDoesNotMatch(current, existing);
+
+        // Then
+        assertEquals(List.of(new File("A")), existing);
     }
 }
