@@ -1,4 +1,4 @@
-package org.example.src;
+package org.example.src.Scanners;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class DesktopScan {
         populatePrivateMemberIfDoesNotMatch(currentDesktopState, desktopFiles);
     }
 
-    static void populatePrivateMemberIfDoesNotMatch(List<File> current, List<File> existing) {
+    public static void populatePrivateMemberIfDoesNotMatch(List<File> current, List<File> existing) {
         boolean areEqual = new HashSet<>(current).containsAll(existing) &&
                 new HashSet<>(existing).containsAll(current) &&
                 current.size() == existing.size();

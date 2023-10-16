@@ -1,5 +1,6 @@
 package org.example.src;
 
+import org.example.src.Scanners.DesktopScan;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
