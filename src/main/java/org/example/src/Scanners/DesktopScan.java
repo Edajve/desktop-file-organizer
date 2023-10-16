@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.src.constants.Ignore;
 
 public class DesktopScan {
     private static final Logger logger = LogManager.getLogger(DesktopScan.class);
@@ -24,8 +25,8 @@ public class DesktopScan {
         if (allFiles == null) logger.info("There are no files on the desktop..");
 
         for (File file : allFiles) {
-            if (!(file.getName().equals(".DS_Store")) &&
-                    !(file.getName().equals(".localized"))
+            if (!(file.getName().equals(Ignore.DirectoryName.DS_STORE)) &&
+                    !(file.getName().equals(Ignore.DirectoryName.LOCALIZE))
             ) {
                 currentDesktopState.add(file);
             }
@@ -34,7 +35,7 @@ public class DesktopScan {
         populatePrivateMemberIfDoesNotMatch(currentDesktopState, desktopFiles);
     }
 
-    public static void populatePrivateMemberIfDoesNotMatch(List<File> current, List<File> existing) {
+     public static void populatePrivateMemberIfDoesNotMatch(List<File> current, List<File> existing) {
         boolean areEqual = new HashSet<>(current).containsAll(existing) &&
                 new HashSet<>(existing).containsAll(current) &&
                 current.size() == existing.size();
