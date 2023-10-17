@@ -82,7 +82,11 @@ public class Desktop {
                 }
             }
         }
-        System.out.println(filesToMove);
+        moveFilesBasedOnCriteria(filesToMove);
+    }
+
+    private static void moveFilesBasedOnCriteria(List<File> files) {
+        System.out.println(files);
     }
 
     private void moveFolder(Path startingPoint, Path destination) throws IOException {
