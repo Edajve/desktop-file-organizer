@@ -3,6 +3,8 @@ package org.example.src.Scanners;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.src.constants.DirectoryPaths;
 import org.example.src.constants.Ignore;
 
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FileStructure {
+    private static final Logger logger = LogManager.getLogger(Desktop.class);
 
     private JsonElement directoryStructure;
 
@@ -25,8 +28,10 @@ public class FileStructure {
     }
 
     public void scanFileStructure() throws IOException {
+        logger.info("Scanning file system...");
         Path rootDirectory = Paths.get(DirectoryPaths.ROOT_DIRECTORY);
         List<String> directoriesToOmit = Collections.singletonList(Ignore.DirectoryName.CODE);
+        logger.info("Building Json from file structure from path '" + rootDirectory + "'");
         Map<String, Object> dirStructure = createJsonFromFileStructure(rootDirectory, directoriesToOmit, rootDirectory);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         this.directoryStructure = gson.toJsonTree(dirStructure);
