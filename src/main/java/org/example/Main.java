@@ -1,29 +1,19 @@
 package org.example;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.example.src.Scanners.DesktopScan;
-import org.example.src.constants.DirectoryPaths;
-import org.example.src.constants.Ignore;
-import org.example.src.structure.Builder;
+import org.example.src.Scanners.Desktop;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        DesktopScan scan = new DesktopScan();
-//        scan.scanDesktop();
+        Desktop scan = new Desktop();
+        scan.scanDesktop();
 
-        Path targetFile = Paths.get("/Users/dajve.echols/Desktop/copiedFile");
-        Path targetDestination = Paths.get("/Users/dajve.echols/Desktop/test_folder/copiedFile");
-
-        scan.moveFolder(targetFile, targetDestination);
-
+        // this is to move a file from one place to another
+//        Path targetFile = Paths.get("/Users/dajve.echols/Desktop/targetVIdeo.png");
+//        Path targetDestination = Paths.get("/Users/dajve.echols/Desktop/test_folder/targetVIdeo.png");
+//
+//        scan.moveFolder(targetFile, targetDestination);
 
 
         // this builds the current directory

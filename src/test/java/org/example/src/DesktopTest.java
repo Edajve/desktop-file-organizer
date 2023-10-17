@@ -1,6 +1,6 @@
 package org.example.src;
 
-import org.example.src.Scanners.DesktopScan;
+import org.example.src.Scanners.Desktop;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DesktopScanTest {
+public class DesktopTest {
     @Test
     public void populatePrivateMemberIfDoesNotMatch_WhenListMatch_ExistingListShouldNotUpdate() {
         // Given
@@ -25,7 +25,7 @@ public class DesktopScanTest {
         existing.add(new File("C"));
 
         // When
-        DesktopScan.populatePrivateMemberIfDoesNotMatch(current, existing);
+        Desktop.populatePrivateMemberIfDoesNotMatch(current, existing);
 
         // Then
         assertEquals(
@@ -50,7 +50,7 @@ public class DesktopScanTest {
         existing.add(new File("Z"));
 
         // When
-        DesktopScan.populatePrivateMemberIfDoesNotMatch(current, existing);
+        Desktop.populatePrivateMemberIfDoesNotMatch(current, existing);
 
         // Then
         assertEquals(List.of(new File("A")), existing);
