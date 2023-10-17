@@ -1,7 +1,6 @@
 package org.example.src.Scanners;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.src.constants.DirectoryPaths;
@@ -44,8 +43,6 @@ public class Desktop {
 
     /**
      * Scans the desktop and adds all files to the private member variable 'desktopFile'
-     *
-     * @return
      */
     public void pollDesktop() {
 
@@ -136,7 +133,6 @@ public class Desktop {
     private static void moveFileToDestination(File file, String keyword) throws IOException {
         Map<String, String> keywordToPathMap = KeyWords.generateKeywordToPathMapping();
         String relativePath = keywordToPathMap.get(keyword);
-
         Path fullDestinationPath = Paths.get(DirectoryPaths.ROOT_DIRECTORY + File.separator + relativePath + File.separator + file.getName());
         Path targetPath = file.toPath();
         moveFolder(targetPath, fullDestinationPath);
