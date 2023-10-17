@@ -1,5 +1,7 @@
 package org.example.src.Scanners;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.src.constants.DirectoryPaths;
@@ -12,18 +14,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Desktop {
     private static final Logger logger = LogManager.getLogger(Desktop.class);
-    private final String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
-    private final File desktopDir = new File(desktopPath);
+    private final File desktopDir = new File(DirectoryPaths.DESKTOP_PATH);
     private final List<File> desktopFiles = new ArrayList<>();
     private static FileStructure fileStructure;
+    private static final Gson gson = new Gson();
 
     public Desktop() {
     }
@@ -132,52 +134,12 @@ public class Desktop {
     }
 
     private static void moveFileToDestination(File file, String keyword) throws IOException {
-        String destinationPathString = determineDestinationPath(keyword, file.getName());
+        Map<String, String> keywordToPathMap = KeyWords.generateKeywordToPathMapping();
+        String relativePath = keywordToPathMap.get(keyword);
+
+        Path fullDestinationPath = Paths.get(DirectoryPaths.ROOT_DIRECTORY + File.separator + relativePath + File.separator + file.getName());
         Path targetPath = file.toPath();
-        Path destinationPath = Paths.get(destinationPathString);
-
-        moveFolder(targetPath, destinationPath);
-    }
-
-    private static String determineDestinationPath(String keyword, String fileName) {
-        String pathFromKeyword = takeKeyWordReturnPath(keyword);
-        return DirectoryPaths.ROOT_DIRECTORY + File.separator + pathFromKeyword + File.separator + fileName;
-    }
-
-    private static String takeKeyWordReturnPath(String keyWord) {
-        switch (keyWord) {
-            case "TfP":
-                return "05-test-for-program";
-            case "pwdX":
-                return "01-personal-work-documents";
-            case "pA":
-                return "02-work-documents/01-Onboarding/01-Permissions";
-            case "tvB":
-                return "02-work-documents/02-Terms-and-Vocab";
-            case "coC":
-                return "02-work-documents/03-Chicago-Office";
-            case "kF":
-                return "02-work-documents/04-screenshots/01-for-learning/01-Kibana";
-            case "ddG":
-                return "02-work-documents/04-screenshots/01-for-learning/02-Data-dog";
-            case "vddK":
-                return "04-videos-and-screenshots/01-Knowledge-Transfer/01-external-software-tools/01-VideoDataDog";
-            case "vtmL":
-                return "04-videos-and-screenshots/01-Knowledge-Transfer/01-external-software-tools/02-VideoTestmo";
-            case "scN":
-                return "04-videos-and-screenshots/01-Knowledge-Transfer/02-vivid-seats-code/01-skybox-client";
-            case "ssO":
-                return "04-videos-and-screenshots/01-Knowledge-Transfer/02-vivid-seats-code/02-skybox-services";
-            case "kttP":
-                return "04-videos-and-screenshots/01-Knowledge-Transfer/03-knowledgeTransferTesting";
-            case "gkQ":
-                return "04-videos-and-screenshots/01-Knowledge-Transfer/04-general-knowledge";
-            case "trash":
-                return "trash";
-            default:
-                logger.error("No keyword was found for this file");
-        }
-        return null;
+        moveFolder(targetPath, fullDestinationPath);
     }
 
     private static void moveFolder(Path startingPoint, Path destination) throws IOException {
