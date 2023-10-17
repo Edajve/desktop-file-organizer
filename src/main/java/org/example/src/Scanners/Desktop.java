@@ -99,27 +99,49 @@ public class Desktop {
     private static void moveFilesBasedOnCriteria(List<File> files) {
         try {
             fileStructure.scanFileStructure();
+
             for (File file : files) {
-                String keyWord = file.getName().split("-")[0];
-                String path = takeKeyWordReturnPath(keyWord);
-
-                // Delete File
-                if (path.equals("trash")) {
-                    boolean wasDeleted = file.delete();
-                    if (wasDeleted) logger.info("File " + file.getName() + " was deleted successfully...");
-                    else logger.info("Failed to delete the file " + file.getName() + "....");
-                } else {
-                    String fullDestinationPath = DirectoryPaths.ROOT_DIRECTORY + File.separator + path + File.separator + file.getName();
-
-                    Path targetPath = Paths.get(file.toURI());
-                    Path destinationPath = Paths.get(fullDestinationPath);
-
-                    moveFolder(targetPath, destinationPath);
-                }
+                processFileBasedOnCriteria(file);
             }
         } catch (Exception e) {
             logger.error(e.getStackTrace());
         }
+    }
+
+    private static void processFileBasedOnCriteria(File file) throws IOException {
+        String keyword = extractKeywordFromFileName(file);
+
+        if ("trash".equals(keyword)) {
+            deleteFile(file);
+        } else {
+            moveFileToDestination(file, keyword);
+        }
+    }
+
+    private static String extractKeywordFromFileName(File file) {
+        return file.getName().split("-")[0];
+    }
+
+    private static void deleteFile(File file) {
+        boolean wasDeleted = file.delete();
+        if (wasDeleted) {
+            logger.info("File " + file.getName() + " was deleted successfully...");
+        } else {
+            logger.info("Failed to delete the file " + file.getName() + "....");
+        }
+    }
+
+    private static void moveFileToDestination(File file, String keyword) throws IOException {
+        String destinationPathString = determineDestinationPath(keyword, file.getName());
+        Path targetPath = file.toPath();
+        Path destinationPath = Paths.get(destinationPathString);
+
+        moveFolder(targetPath, destinationPath);
+    }
+
+    private static String determineDestinationPath(String keyword, String fileName) {
+        String pathFromKeyword = takeKeyWordReturnPath(keyword);
+        return DirectoryPaths.ROOT_DIRECTORY + File.separator + pathFromKeyword + File.separator + fileName;
     }
 
     private static String takeKeyWordReturnPath(String keyWord) {
