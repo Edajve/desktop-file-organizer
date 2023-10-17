@@ -1,5 +1,7 @@
 # Java Desktop File Organizer
 
+** Currently V1 of this project only works for my local directory structure. This is more of a proof of concept before making this fully dynamic
+
 ## Overview
 This application serves as an automated file organizer for the desktop. Based on specific criteria like file prefix, it reorganizes files into an established directory structure. It operates within defined hours, provides notifications for exceptions, and offers flexibility through configuration files.
 
@@ -32,13 +34,7 @@ This application serves as an automated file organizer for the desktop. Based on
 ### 8. Documentation
 - Includes instructions for setup, configuration modification, and expected naming criteria.
 
-### 9. Performance and Efficiency
-- Designed for minimal system resource consumption.
-
-### 10. Validation and Error-checking
-- Validates the JSON configuration against expected patterns.
-
-### 11. Configuration Flexibility (Bonus)
+### 9. Configuration Flexibility (Bonus)
 - Provides multiple methods to adjust settings, such as operating hours.
 
 ## Libraries & Tools
@@ -73,19 +69,9 @@ This application serves as an automated file organizer for the desktop. Based on
 - Reliable logging library for Java.
 - [Log4j](https://logging.apache.org/log4j/2.x/)
 
-#### Desktop (Java built-in)
-- Allows interactions with the host environment.
-- [Java Desktop API](https://docs.oracle.com/javase/8/docs/api/java/awt/Desktop.html)
-
 ## Continuous Integration & Testing
 
 ### Jenkins
 
 This project integrates **Jenkins** for continuous integration and testing. A Jenkins pipeline is set up to automatically activate on every Pull Request (PR). The pipeline ensures:
-
 - **Unit Tests**: Run against the latest code changes to verify their correctness.
-- **Integration Tests**: Ensure the application's components work seamlessly together.
-- **Consistency**: Tests are run in a consistent environment to prevent discrepancies between development environments.
-- **Reporting**: Any failures or issues during the CI process are promptly reported, ensuring only quality code gets merged.
-
-For more details on Jenkins and its setup, visit [Jenkins Official Website](https://www.jenkins.io/).
