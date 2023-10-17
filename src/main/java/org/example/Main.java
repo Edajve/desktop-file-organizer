@@ -7,12 +7,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-//        Desktop desktop = new Desktop();
-//        desktop.scanDesktop();
-
-        FileStructure fileStructure = new FileStructure();
-        fileStructure.scanFileStructure();
-//        System.out.println(fileStructure.getDirectoryStructure());
+        Desktop desktop = new Desktop(new FileStructure());
+        desktop.pollDesktop();
 
         // this is to move a file from one place to another
 //        Path targetFile = Paths.get("/Users/dajve.echols/Desktop/targetVIdeo.png");

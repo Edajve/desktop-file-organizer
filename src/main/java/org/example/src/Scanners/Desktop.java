@@ -20,6 +20,14 @@ public class Desktop {
     private final String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
     private final File desktopDir = new File(desktopPath);
     private final List<File> desktopFiles = new ArrayList<>();
+    private static FileStructure fileStructure;
+
+    public Desktop() {
+    }
+
+    public Desktop(FileStructure fileStructure) {
+        this.fileStructure = fileStructure;
+    }
 
     public List<File> getDesktopFiles() {
         return this.desktopFiles;
@@ -34,11 +42,12 @@ public class Desktop {
     }
 
     /**
-     * Scans the desktop and adds all files to the desktopFile
+     * Scans the desktop and adds all files to the private member variable 'desktopFile'
      */
-    public void scanDesktop() {
+    public void pollDesktop() {
 
-        if (!this.desktopDir.exists() || !this.desktopDir.isDirectory()) logger.info("Desktop directory does not exist..");
+        if (!this.desktopDir.exists() || !this.desktopDir.isDirectory())
+            logger.info("Desktop directory does not exist..");
 
         File[] allFiles = this.desktopDir.listFiles();
         List<File> currentDesktopState = new ArrayList<>();
@@ -47,7 +56,8 @@ public class Desktop {
 
         for (File file : allFiles) {
             if (!(file.getName().equals(Ignore.DirectoryName.DS_STORE)) &&
-                    !(file.getName().equals(Ignore.DirectoryName.LOCALIZE))
+                    !(file.getName().equals(Ignore.DirectoryName.LOCALIZE) &&
+                            !(file.getName().equals(Ignore.DirectoryName.DONT_DELETE)))
             ) {
                 currentDesktopState.add(file);
             }
@@ -86,7 +96,10 @@ public class Desktop {
     }
 
     private static void moveFilesBasedOnCriteria(List<File> files) {
-        System.out.println(files);
+        try {
+            fileStructure.scanFileStructure();
+        } catch (Exception ignored) {
+        }
     }
 
     private void moveFolder(Path startingPoint, Path destination) throws IOException {
