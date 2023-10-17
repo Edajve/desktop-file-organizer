@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -101,14 +102,23 @@ public class Desktop {
             for (File file : files) {
                 String keyWord = file.getName().split("-")[0];
                 String path = takeKeyWordReturnPath(keyWord);
-                String fullDestinationPath = DirectoryPaths.ROOT_DIRECTORY + File.separator + path + File.separator + file.getName();
 
-                Path targetPath = Paths.get(file.toURI());
-                Path destinationPath = Paths.get(fullDestinationPath);
+                // Delete File
+                if (path.equals("trash")) {
+                    boolean wasDeleted = file.delete();
+                    if (wasDeleted) logger.info("File " + file.getName() + " was deleted successfully...");
+                    else logger.info("Failed to delete the file " + file.getName() + "....");
+                } else {
+                    String fullDestinationPath = DirectoryPaths.ROOT_DIRECTORY + File.separator + path + File.separator + file.getName();
 
-                moveFolder(targetPath, destinationPath);
+                    Path targetPath = Paths.get(file.toURI());
+                    Path destinationPath = Paths.get(fullDestinationPath);
+
+                    moveFolder(targetPath, destinationPath);
+                }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            logger.error(e.getStackTrace());
         }
     }
 
@@ -140,6 +150,8 @@ public class Desktop {
                 return "04-videos-and-screenshots/01-Knowledge-Transfer/03-knowledgeTransferTesting";
             case "gkQ":
                 return "04-videos-and-screenshots/01-Knowledge-Transfer/04-general-knowledge";
+            case "trash":
+                return "trash";
             default:
                 logger.error("No keyword was found for this file");
         }

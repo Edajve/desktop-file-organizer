@@ -22,6 +22,7 @@ public class KeyWords {
             "ssO",
             "kttP",
             "gkQ",
-            "TfP"
+            "TfP",
+            "trash"
     };
 }
