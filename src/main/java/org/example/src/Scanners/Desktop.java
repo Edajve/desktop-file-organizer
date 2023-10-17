@@ -1,5 +1,11 @@
 package org.example.src.Scanners;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.example.src.constants.DirectoryPaths;
+import org.example.src.constants.Ignore;
+import org.example.src.constants.KeyWords;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,12 +14,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.example.src.constants.DirectoryPaths;
-import org.example.src.constants.Ignore;
-import org.example.src.constants.KeyWords;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -41,6 +41,8 @@ public class Desktop {
 
     /**
      * Scans the desktop and adds all files to the private member variable 'desktopFile'
+     *
+     * @return
      */
     public void pollDesktop() {
 
