@@ -9,10 +9,5 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Desktop desktop = new Desktop(new FileStructure());
         desktop.pollDesktop();
-
-        // this is to move a file from one place to another
-//        Path targetFile = Paths.get("/Users/dajve.echols/Desktop/targetVIdeo.png");
-//        Path targetDestination = Paths.get("/Users/dajve.echols/Desktop/test_folder/targetVIdeo.png");
-//        scan.moveFolder(targetFile, targetDestination);
     }
 }
