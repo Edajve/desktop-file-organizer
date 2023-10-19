@@ -4,30 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KeyWords {
-    public static String[] KEYWORDS = new String[]{
-            "pwdX",
-            "wdY",
-            "oZ",
-            "pA",
-            "tvB",
-            "coC",
-            "sD",
-            "flE",
-            "kF",
-            "ddG",
-            "vsH",
-            "ktI",
-            "estJ",
-            "vddK",
-            "vtmL",
-            "vscM",
-            "scN",
-            "ssO",
-            "kttP",
-            "gkQ",
-            "TfP",
-            "trash"
-    };
 
     public static Map<String, String> generateKeywordToPathMapping() {
         Map<String, String> keywordToPath = new HashMap<>();
@@ -45,6 +21,7 @@ public class KeyWords {
         keywordToPath.put("ssO", "04-videos-and-screenshots/01-Knowledge-Transfer/02-vivid-seats-code/02-skybox-services");
         keywordToPath.put("kttP", "04-videos-and-screenshots/01-Knowledge-Transfer/03-knowledgeTransferTesting");
         keywordToPath.put("gkQ", "04-videos-and-screenshots/01-Knowledge-Transfer/04-general-knowledge");
+        keywordToPath.put("p00", "04-videos-and-screenshots/01-Knowledge-Transfer/05-processes");
         keywordToPath.put("trash", "trash");
         return keywordToPath;
     }

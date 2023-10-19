@@ -81,12 +81,14 @@ public class Desktop {
     }
 
     private static void checkFilesWithKeyWords(List<File> files) {
-        String[] keyWords = KeyWords.KEYWORDS;
+        Map<String, String> mapOfKeyWordsAndPaths = KeyWords.generateKeywordToPathMapping();
+//        List<String> keyWords = new ArrayList<>(mapOfKeyWordsAndPaths.size());
+//        String[] keyWords = KeyWords.KEYWORDS;
         List<File> filesToMove = new ArrayList<>();
 
         for (File file : files) {
             String fileName = file.getName();
-            for (String keyWord : keyWords) {
+            for (String keyWord : mapOfKeyWordsAndPaths.keySet()) {
                 if (fileName.contains(keyWord)) {
                     filesToMove.add(file);
                 }
@@ -133,9 +135,14 @@ public class Desktop {
     private static void moveFileToDestination(File file, String keyword) throws IOException {
         Map<String, String> keywordToPathMap = KeyWords.generateKeywordToPathMapping();
         String relativePath = keywordToPathMap.get(keyword);
-        Path fullDestinationPath = Paths.get(DirectoryPaths.ROOT_DIRECTORY + File.separator + relativePath + File.separator + file.getName());
+        String finalFileName = stripKeyWord(file.getName());
+        Path fullDestinationPath = Paths.get(DirectoryPaths.ROOT_DIRECTORY + File.separator + relativePath + File.separator + finalFileName);
         Path targetPath = file.toPath();
         moveFolder(targetPath, fullDestinationPath);
+    }
+
+    private static String stripKeyWord(String fileName) {
+        return fileName.split("-")[1];
     }
 
     private static void moveFolder(Path startingPoint, Path destination) throws IOException {
