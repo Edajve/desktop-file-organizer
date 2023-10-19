@@ -38,37 +38,8 @@ public class FileStructure {
      * @param dir               the directory where you want to start from
      * @param directoriesToOmit name of any directory you don't want included
      * @param root              the directory you want to start the relative path from
-     * @return a json structure of your file system, along with the relative path of every directory/subdirectory starting from root directory
-     * @Overloaded method
-     */
-    public static Map<String, Object> createJsonFromFileStructure(Path dir, List<String> directoriesToOmit, Path root) throws IOException {
-        Map<String, Object> dirMap = new HashMap<>();
-        Map<String, Object> subDirs = new HashMap<>();
-
-        dirMap.put("path", root.relativize(dir).toString());
-
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-                if (Files.isDirectory(path) && !directoriesToOmit.contains(path.getFileName().toString())) {
-                    subDirs.put(path.getFileName().toString(), createJsonFromFileStructure(path, directoriesToOmit, root));
-                }
-            }
-        }
-
-        if (!subDirs.isEmpty()) {
-            dirMap.put("subdirectories", subDirs);
-        }
-        return dirMap;
-    }
-
-    /**
-     * Overloaded method
-     *
-     * @param dir               the directory where you want to start from
-     * @param directoriesToOmit name of any directory you don't want included
-     * @param root              the directory you want to start the relative path from
      * @param keywordToPath     this is a map of all the keywords with its associated path
-     * @return a json structure of your file system, along with the relative path of every directory/subdirectory starting from root directory
+     * @return This method generates a json with each directory, its keyword, and its path.
      */
     public static Map<String, Object> createJsonFromFileStructure(Path dir, List<String> directoriesToOmit, Path root, Map<String, String> keywordToPath) throws IOException {
         Map<String, Object> dirMap = new HashMap<>();
