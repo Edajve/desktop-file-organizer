@@ -8,6 +8,7 @@ import org.example.src.constants.KeyWords;
 import org.example.src.operations.FileOperations;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Desktop {
     /**
      * Scans the desktop and adds all files to the private member variable 'desktopFile'
      */
-    public void pollDesktop() {
+    public void pollDesktop() throws IOException {
 
         if (!this.desktopDir.exists() || !this.desktopDir.isDirectory())
             logger.info("Desktop directory does not exist..");
@@ -45,25 +46,27 @@ public class Desktop {
                 currentDesktopState.add(file);
             }
         }
+
         populatePrivateMemberIfDoesNotMatch(currentDesktopState, this.desktopFiles);
+        List<File> filesToMove =  checkFilesWithKeyWords(this.desktopFiles);
+        this.fileOperations.processFilesBasedOnCriteria(filesToMove);
     }
 
-    public void populatePrivateMemberIfDoesNotMatch(List<File> current, List<File> existing) {
-        boolean areEqual = new HashSet<>(current).containsAll(existing) &&
-                new HashSet<>(existing).containsAll(current) &&
-                current.size() == existing.size();
+    public void populatePrivateMemberIfDoesNotMatch(List<File> current, List<File> localDesktopMember) {
+        boolean areEqual = new HashSet<>(current).containsAll(localDesktopMember) &&
+                new HashSet<>(localDesktopMember).containsAll(current) &&
+                current.size() == localDesktopMember.size();
 
         if (areEqual) {
             logger.info("Desktop has not changed...");
         } else {
             logger.info("Desktop has changed updating desktop state...");
-            existing.clear();
-            existing.addAll(current);
+            localDesktopMember.clear();
+            localDesktopMember.addAll(current);
         }
-        checkFilesWithKeyWords(current);
     }
 
-    private void checkFilesWithKeyWords(List<File> files) {
+    private List<File> checkFilesWithKeyWords(List<File> files) {
         Map<String, String> mapOfKeyWordsAndPaths = KeyWords.generateKeywordToPathMapping();
         List<File> filesToMove = new ArrayList<>();
 
@@ -75,16 +78,16 @@ public class Desktop {
                 }
             }
         }
-        moveFilesBasedOnCriteria(filesToMove);
+        return filesToMove;
     }
 
-    private void moveFilesBasedOnCriteria(List<File> files) {
-        try {
-            for (File file : files) {
-                this.fileOperations.processFileBasedOnCriteria(file);
-            }
-        } catch (Exception e) {
-            logger.error(e.getStackTrace());
-        }
-    }
+//    private void moveFilesBasedOnCriteria(List<File> files) {
+//        try {
+//            for (File file : files) {
+//                this.fileOperations.processFileBasedOnCriteria(file);
+//            }
+//        } catch (Exception e) {
+//            logger.error(e.getStackTrace());
+//        }
+//    }
 }

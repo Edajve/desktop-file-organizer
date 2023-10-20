@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -25,13 +26,16 @@ public class FileOperations {
 
     private static final Logger logger = LogManager.getLogger(FileOperations.class);
 
-    public void processFileBasedOnCriteria(File file) throws IOException {
-        String keyword = this.utility.extractKeywordFromFileName(file);
+    public void processFilesBasedOnCriteria(List<File> files) throws IOException {
 
-        if ("trash".equals(keyword)) {
-            deleteFile(file);
-        } else {
-            moveFileToDestination(file, keyword);
+        for (File file : files) {
+            String keyword = this.utility.extractKeywordFromFileName(file);
+
+            if ("trash".equals(keyword)) {
+                deleteFile(file);
+            } else {
+                moveFileToDestination(file, keyword);
+            }
         }
     }
 
