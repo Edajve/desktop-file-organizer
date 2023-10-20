@@ -7,7 +7,6 @@ public class KeyWords {
 
     public static Map<String, String> generateKeywordToPathMapping() {
         Map<String, String> keywordToPath = new HashMap<>();
-
         keywordToPath.put("TfP", "05-test-for-program");
         keywordToPath.put("pwdX", "01-personal-work-documents");
         keywordToPath.put("pA", "02-work-documents/01-Onboarding/01-Permissions");

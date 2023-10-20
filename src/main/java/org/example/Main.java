@@ -1,11 +1,12 @@
 package org.example;
 
 import org.example.src.Scanners.Desktop;
-import org.example.src.Scanners.FileStructure;
+import org.example.src.operations.FileOperations;
+import org.example.src.utils.Utility;
 
 public class Main {
     public static void main(String[] args) {
-        Desktop desktop = new Desktop(new FileStructure());
+        Desktop desktop = new Desktop(new FileOperations(new Utility()));
         desktop.pollDesktop();
     }
 }
