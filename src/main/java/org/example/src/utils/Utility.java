@@ -7,5 +7,7 @@ public class Utility {
         return file.getName().split("-")[0];
     }
 
-    public String stripKeyWord(String fileName) { return fileName.split("-")[1]; }
+    public String stripKeyWord(String fileName) {
+        return fileName.split("-")[1];
+    }
 }

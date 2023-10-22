@@ -38,17 +38,18 @@ public class Desktop {
         if (allFiles == null) logger.info("There are no files on the desktop..");
 
         assert allFiles != null;
+        boolean ifFileDoesntEqualWordsToIgnore;
         for (File file : allFiles) {
-            if (!(file.getName().equals(Ignore.DirectoryName.DS_STORE)) &&
+            ifFileDoesntEqualWordsToIgnore = !(file.getName().equals(Ignore.DirectoryName.DS_STORE)) &&
                     !(file.getName().equals(Ignore.DirectoryName.LOCALIZE) &&
-                            !(file.getName().equals(Ignore.DirectoryName.DONT_DELETE)))
-            ) {
+                            !(file.getName().equals(Ignore.DirectoryName.DONT_DELETE)));
+            if (ifFileDoesntEqualWordsToIgnore) {
                 currentDesktopState.add(file);
             }
         }
 
         populatePrivateMemberIfDoesNotMatch(currentDesktopState, this.desktopFiles);
-        List<File> filesToMove =  checkFilesWithKeyWords(this.desktopFiles);
+        List<File> filesToMove = checkFilesWithKeyWords(this.desktopFiles);
         this.fileOperations.processFilesBasedOnCriteria(filesToMove);
     }
 
@@ -80,14 +81,4 @@ public class Desktop {
         }
         return filesToMove;
     }
-
-//    private void moveFilesBasedOnCriteria(List<File> files) {
-//        try {
-//            for (File file : files) {
-//                this.fileOperations.processFileBasedOnCriteria(file);
-//            }
-//        } catch (Exception e) {
-//            logger.error(e.getStackTrace());
-//        }
-//    }
 }
