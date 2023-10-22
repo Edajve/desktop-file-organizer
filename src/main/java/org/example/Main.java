@@ -16,25 +16,32 @@ public class Main {
 
         Desktop desktop = new Desktop(new FileOperations(new Utility()));
         Scanner scanner = new Scanner(System.in);
+        boolean continueLoop = true;
 
-        while (true) {
+        while (continueLoop) {
             desktop.pollDesktop();
+            String[] arguments = scanner.next().split(" ");
+            continueLoop = handleArguments(arguments);
+        }
+    }
 
-            String input = scanner.next();
+    public static boolean handleArguments(String[] arguments) {
+        boolean returnVal = false;
 
-            if (input.equalsIgnoreCase("exit")) {
+        for (String argument : arguments) {
+            if (argument.equalsIgnoreCase("exit")) {
                 logger.info("Exiting program...");
-                break;
-            } else if (input.equalsIgnoreCase("something")) {
+                returnVal = false;
+            } else if (argument.equalsIgnoreCase("something")) {
                 logger.info("passed something else");
-            } else  {
-                String format = String.format("Argument '%s' is not recognized in this program...", input);
+                returnVal = true;
+            } else {
+                String format = String.format("Argument '%s' is not recognized in this program...", argument);
                 logger.info(format);
-                break;
+                returnVal = false;
             }
         }
-
-        scanner.close();
+        return returnVal;
     }
 }
 
