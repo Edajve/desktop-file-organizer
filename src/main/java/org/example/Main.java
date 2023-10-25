@@ -51,7 +51,19 @@ public class Main {
                 if (argument.equalsIgnoreCase("exit")) {
                     logger.info("Exiting program...");
                     break;
-                } else if (argument.equalsIgnoreCase("something")) {
+                } else if (AllowedArguments.arguments.contains(arguments[0])) {
+                    /*
+                    Figure out the logic or requirements for this block
+                    If you're in this block of code that means that the first argument is allowed
+                    and there is another argument coming after the first argument.
+
+                    you have to come up with a method to be able to gather all the arguments before you do the operation
+                    so come up with a way, either store it in a list and then after the loop has
+                    exhausted run a method on all the arguments. or something else if you think of
+
+                    by doing it this way, you are exhausting the whole loop before running the method
+                    so that you don't have to worry about dealing with after effects of the loop
+                     */
                     logger.info("passed something else");
                     endProgram = true;
                 } else {
