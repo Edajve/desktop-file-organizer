@@ -3,10 +3,12 @@ package org.example;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.src.Scanners.Desktop;
+import org.example.src.constants.AllowedArguments;
 import org.example.src.operations.FileOperations;
 import org.example.src.utils.Utility;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -17,31 +19,49 @@ public class Main {
         Desktop desktop = new Desktop(new FileOperations(new Utility()));
         Scanner scanner = new Scanner(System.in);
         boolean continueLoop = true;
+        boolean firstTry = true;
 
         while (continueLoop) {
-            desktop.pollDesktop();
-            String[] arguments = scanner.next().split(" ");
-            continueLoop = handleArguments(arguments);
+
+            if (firstTry) desktop.pollDesktop();
+            String[] arguments = scanner.nextLine().split(" ");
+            continueLoop = handleArguments(arguments); // logic for this method does not work yet
+            firstTry = false;
         }
     }
 
-    public static boolean handleArguments(String[] arguments) {
-        boolean returnVal = false;
+    private static boolean handleArguments(String[] arguments) {
+        boolean endProgram = false;
 
-        for (String argument : arguments) {
-            if (argument.equalsIgnoreCase("exit")) {
+        if (arguments.length == 1) {
+
+            if (arguments[0].equalsIgnoreCase("exit")) {
                 logger.info("Exiting program...");
-                returnVal = false;
-            } else if (argument.equalsIgnoreCase("something")) {
-                logger.info("passed something else");
-                returnVal = true;
+            } else if (AllowedArguments.arguments.contains(arguments[0])) {
+                logger.info(("This flag expects additional arguments..."));
+                endProgram = true;
             } else {
-                String format = String.format("Argument '%s' is not recognized in this program...", argument);
+                String format = String.format("Argument '%s' is not recognized in this program...", arguments[0]);
                 logger.info(format);
-                returnVal = false;
+            }
+
+        } else {
+
+            for (String argument : arguments) {
+                if (argument.equalsIgnoreCase("exit")) {
+                    logger.info("Exiting program...");
+                    break;
+                } else if (argument.equalsIgnoreCase("something")) {
+                    logger.info("passed something else");
+                    endProgram = true;
+                } else {
+                    String format = String.format("Argument '%s' is not recognized in this program...", argument);
+                    logger.info(format);
+                    break;
+                }
             }
         }
-        return returnVal;
+        return endProgram;
     }
 }
 
