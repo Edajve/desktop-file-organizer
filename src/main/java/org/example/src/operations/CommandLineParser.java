@@ -44,11 +44,8 @@ public class CommandLineParser {
 
     public boolean processArguments(String[] arguments) {
         boolean continueProgram;
-        if (arguments.length == 1) {
-            continueProgram = handleSingleArgument(arguments[0]);
-        } else {
-            continueProgram = handleMultipleArguments(arguments);
-        }
+        if (arguments.length == 1) continueProgram = handleSingleArgument(arguments[0]);
+        else continueProgram = handleMultipleArguments(arguments);
         return continueProgram;
     }
 
@@ -69,43 +66,21 @@ public class CommandLineParser {
     }
 
     private boolean handleMultipleArguments(String[] arguments) {
-        boolean endProgram = false;
+        boolean continueProgram = true;
 
         if (Arrays.asList(arguments).contains("exit".toLowerCase())) {
             String[] deletedArgumentsAfterExit = deleteArgumentsAfterExit(arguments);
             Arrays.stream(deletedArgumentsAfterExit).forEach(a -> {
-                if (a != null) addArgument(a);
+                if (a != null) this.addArgument(a);
             });
-            System.out.println(getArguments());
+        } else if (AllowedArguments.arguments.contains(arguments[0]))
+            Arrays.stream(arguments).forEach(this::addArgument);
+        else {
+            String format = String.format("Argument '%s' is not recognized in this program...", arguments[0]);
+            logger.info(format);
+            continueProgram = false;
         }
-        /**
-         * TODO
-         * finishes the logic for what to do in the case the there is no exit argument in the arguments
-         * either filter through get exit if we find a bad argument or find what to do next in the case that
-         * the arguments doesnt have exit in it
-         */
-        // if it has no exit in the command of arguments
-        if (AllowedArguments.arguments.contains(arguments[0])) {
-            return true;
-        }
-
-        return endProgram;
-
-//        for (String argument : arguments) {
-//            if (argument.equalsIgnoreCase("exit")) {
-//                logger.info("Exiting program...");
-//                break;
-//            } else if (AllowedArguments.arguments.contains(arguments[0])) {
-//
-//                return true;
-//            } else {
-//                String format = String.format("Argument '%s' is not recognized in this program...", argument);
-//                logger.info(format);
-//                break;
-//            }
-//        }
-//        return false;
-
+        return continueProgram;
     }
 
     private String[] deleteArgumentsAfterExit(String[] args) {
