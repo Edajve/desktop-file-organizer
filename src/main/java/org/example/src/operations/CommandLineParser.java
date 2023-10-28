@@ -3,6 +3,7 @@ package org.example.src.operations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.src.constants.AllowedArguments;
+import org.example.src.operations.flagOperations.FlagOperations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,7 +81,23 @@ public class CommandLineParser {
             logger.info(format);
             continueProgram = false;
         }
+
+        if (continueProgram) executeArguments(this.arguments);
         return continueProgram;
+    }
+
+    private static void executeArguments(List<String> arguments) {
+        switch (arguments.get(0)) {
+            case "-open", "-o":
+                FlagOperations.openFlag(arguments);
+                break;
+            case "-delete", "-d":
+                FlagOperations.deleteFlag(arguments);
+                break;
+            case "-show", "-s":
+                FlagOperations.showFlag(arguments);
+                break;
+        }
     }
 
     private String[] deleteArgumentsAfterExit(String[] args) {
