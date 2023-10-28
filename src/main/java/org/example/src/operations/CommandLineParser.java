@@ -40,6 +40,15 @@ public class CommandLineParser {
     }
 
     public String[] splitArgument(String args) {
+        if (args.contains("\"")) {
+            // have to handle a case where an argument(s)
+            // is wrapped in quotes because the name of a file has spaces
+            // ideally it should be renamed before passed but this is an edge case
+            System.out.println(args);
+            String[] a = args.split(" ");
+            List<String> properCommand = new ArrayList<>();
+            return properCommand.toArray(new String[0]);
+        }
         return args.split(" ");
     }
 
@@ -89,7 +98,10 @@ public class CommandLineParser {
     private static void executeArguments(List<String> arguments) {
         switch (arguments.get(0)) {
             case "-open", "-o":
-                FlagOperations.openFlag(arguments);
+                // This flag requires an application name to open the files in,
+                // application argument should be at the end of command
+                int lastArgumentIndex = arguments.size() - 1;
+                FlagOperations.openFlag(arguments, arguments.get(lastArgumentIndex));
                 break;
             case "-delete", "-d":
                 FlagOperations.deleteFlag(arguments);
