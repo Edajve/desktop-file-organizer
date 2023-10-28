@@ -27,4 +27,8 @@ public class Open {
     public void setArguments(List<String> arguments) {
         this.arguments = arguments;
     }
+
+    public boolean canOpenInApplication(String application) {
+        return Desktop.isDesktopSupported();
+    }
 }
