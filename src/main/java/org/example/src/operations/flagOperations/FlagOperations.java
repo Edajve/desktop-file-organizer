@@ -3,7 +3,10 @@ package org.example.src.operations.flagOperations;
 import java.util.List;
 
 public class FlagOperations {
-    public static void openFlag(List<String> args) {
+    private FileOperations fileOperations = new FileOperations();
+    private static final Logger logger = LogManager.getLogger(FlagOperations.class);
+
+    public static void openFlag(List<String> args, String applicationToOpenIn) {
         Open open = new Open(args);
         System.out.println(open.getArguments());
     }
