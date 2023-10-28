@@ -70,7 +70,6 @@ public class CommandLineParserTest {
         // When
         boolean result = underTest.processArguments(argument);
         // Then
-
         assertFalse(result);
     }
 
