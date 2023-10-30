@@ -94,7 +94,7 @@ public class CommandLineParser {
             case "-delete", "-d":
                 FlagOperations.deleteFlag(arguments);
                 break;
-            case "-show", "-s":
+            case "-move", "-s":
                 FlagOperations.showFlag(arguments);
                 break;
         }
