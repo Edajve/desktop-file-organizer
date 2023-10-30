@@ -20,6 +20,10 @@ public class FileOperations {
 
     final private Utility utility;
 
+    public FileOperations() {
+        this.utility = null;
+    }
+
     public FileOperations(Utility utility) {
         this.utility = utility;
     }
