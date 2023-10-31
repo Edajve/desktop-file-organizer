@@ -21,6 +21,7 @@ public class KeyWords {
         keywordToPath.put("kttP", "04-videos-and-screenshots/01-Knowledge-Transfer/03-knowledgeTransferTesting");
         keywordToPath.put("gkQ", "04-videos-and-screenshots/01-Knowledge-Transfer/04-general-knowledge");
         keywordToPath.put("p00", "04-videos-and-screenshots/01-Knowledge-Transfer/05-processes");
+        keywordToPath.put("lkdn", "04-videos-and-screenshots/01-Knowledge-Transfer/04-general-knowledge/linkedIn");
         keywordToPath.put("trash", "trash");
         return keywordToPath;
     }

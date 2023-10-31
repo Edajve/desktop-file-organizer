@@ -9,19 +9,20 @@ import org.example.src.operations.FileOperations;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Desktop {
     private static final Logger logger = LogManager.getLogger(Desktop.class);
-    private final File desktopDir = new File(DirectoryPaths.DESKTOP_PATH);
+    private File desktopDir = new File(DirectoryPaths.DESKTOP_PATH);
     private final List<File> desktopFiles = new ArrayList<>();
     private final FileOperations fileOperations;
 
     public Desktop(FileOperations fileOperations) {
         this.fileOperations = fileOperations;
+    }
+
+    public void setDesktopDirectory(String file) {
+        this.desktopDir =  new File(file);
     }
 
     /**
@@ -33,14 +34,14 @@ public class Desktop {
             logger.error("Desktop directory does not exist..");
         }
 
-        File[] allFiles = this.desktopDir.listFiles();
+        Optional<File[]> allFiles = getAllFiles();
         List<File> currentDesktopState = new ArrayList<>();
 
-        if (allFiles == null) logger.info("There are no files on the desktop..");
+        if (allFiles.isEmpty()) logger.info("There are no files on the desktop..");
 
-        assert allFiles != null;
+        assert allFiles.isPresent();
         boolean ifFileDoesntEqualWordsToIgnore;
-        for (File file : allFiles) {
+        for (File file : allFiles.get()) {
             ifFileDoesntEqualWordsToIgnore = !(file.getName().equals(Ignore.DirectoryName.DS_STORE)) &&
                     !(file.getName().equals(Ignore.DirectoryName.LOCALIZE) &&
                             !(file.getName().equals(Ignore.DirectoryName.DONT_DELETE)));
@@ -85,5 +86,9 @@ public class Desktop {
 
     public String getPath(String fileName) {
         return this.desktopDir + File.separator + fileName;
+    }
+
+    public Optional<File[]> getAllFiles() {
+        return Optional.ofNullable(this.desktopDir.listFiles());
     }
 }
