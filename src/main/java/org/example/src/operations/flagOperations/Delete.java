@@ -37,6 +37,7 @@ public class Delete {
     }
 
     private void clear() {
+        // figure why this is making test fail in 'DesktopTest.java'
         getArguments().clear();
     }
 
@@ -54,7 +55,7 @@ public class Delete {
                 this.fileOperations.deleteFile(new File(path));
             }
         }
-        //clear();
+        clear();
     }
 
     private void deleteAllFiles(Optional<File[]> allFiles) {

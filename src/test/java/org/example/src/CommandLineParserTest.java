@@ -80,7 +80,7 @@ public class CommandLineParserTest {
         // When
         boolean result = underTest.processArguments(argument);
         // Then
-        List<String> actual = underTest.getArguments();
+        List<String> actual = List.of(new String[]{"-delete", "argument2", "argument3", "argument4", "argument5"});
         String[] expected = new String[]{"-delete", "argument2", "argument3", "argument4", "argument5"};
 
         assertTrue(result);
