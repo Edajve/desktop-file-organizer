@@ -2,6 +2,7 @@ package org.example.src.operations;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.src.Scanners.Desktop;
 import org.example.src.constants.DirectoryPaths;
 import org.example.src.constants.KeyWords;
 import org.example.src.utils.Utility;
@@ -43,7 +44,7 @@ public class FileOperations {
         }
     }
 
-    private void deleteFile(File file) {
+    public void deleteFile(File file) {
         boolean wasDeleted = file.delete();
         if (wasDeleted) {
             logger.info("File " + file.getName() + " was deleted successfully...");

@@ -29,8 +29,9 @@ public class Desktop {
      */
     public void pollDesktop() throws IOException {
 
-        if (!this.desktopDir.exists() || !this.desktopDir.isDirectory())
-            logger.info("Desktop directory does not exist..");
+        if (!this.desktopDir.exists() || !this.desktopDir.isDirectory()) {
+            logger.error("Desktop directory does not exist..");
+        }
 
         File[] allFiles = this.desktopDir.listFiles();
         List<File> currentDesktopState = new ArrayList<>();
@@ -80,5 +81,9 @@ public class Desktop {
             }
         }
         return filesToMove;
+    }
+
+    public String getPath(String fileName) {
+        return this.desktopDir + File.separator + fileName;
     }
 }
