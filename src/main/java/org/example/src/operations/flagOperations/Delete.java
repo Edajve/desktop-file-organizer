@@ -39,6 +39,7 @@ public class Delete {
         List<String> filesToDelete = getArguments().subList(1, getArguments().size());
         for (String fileName : filesToDelete) {
             String path = this.desktop.getPath(fileName);
+            System.out.println(path);
             this.fileOperations.deleteFile(new File(path));
         }
         clear();
