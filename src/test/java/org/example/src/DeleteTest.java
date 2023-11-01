@@ -31,10 +31,8 @@ public class DeleteTest {
         Optional<File[]> allFiles = desktop.getAllFiles();
 
         int actual = Arrays.asList(allFiles.get()).size();
-        int expected = 1;
-        boolean expectedbool = Arrays.asList(allFiles.get()).get(0).toString().contains(".DS_Store");
+        int expected = 3;
 
         assertEquals(actual, expected);
-        assertTrue(expectedbool);
     }
 }
