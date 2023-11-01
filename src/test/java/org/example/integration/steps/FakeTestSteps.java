@@ -13,7 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FakeTestSteps {
-    private static Map<String, Object> scenarioContext;
+    private static Map<String, Integer> scenarioContext;
 
     @Before
     public static void before_all() {
@@ -42,7 +42,6 @@ public class FakeTestSteps {
     @Then("it should equal {string}, hopefully")
     public void it_should_equal_hopefully(String string) {
         int result = (int) scenarioContext.get("result");
-        System.out.println(result);
         assertEquals(string, result);
     }
 }
