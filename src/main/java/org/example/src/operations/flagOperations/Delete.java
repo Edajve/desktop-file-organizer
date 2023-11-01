@@ -20,6 +20,11 @@ public class Delete {
     final private Desktop desktop;
     private List<String> arguments;
 
+    public Delete() {
+        this.fileOperations = null;
+        this.desktop = null;
+    }
+
     public Delete(List<String> arguments) {
         this.arguments = arguments;
         this.fileOperations = new FileOperations();
@@ -52,7 +57,7 @@ public class Delete {
                 break;
             } else {
                 String path = this.desktop.getPath(argument);
-                this.fileOperations.deleteFile(new File(path));
+                deleteFile(new File(path));
             }
         }
         clear();
@@ -61,8 +66,17 @@ public class Delete {
     private void deleteAllFiles(Optional<File[]> allFiles) {
         Arrays.stream(allFiles.get()).forEach(file -> {
             if (!Ignore.DirectoryName.DIRECTORIES_TO_IGNORE.contains(file.getName())) {
-                this.fileOperations.deleteFile(file);
+                deleteFile(file);
             }
         });
+    }
+
+    public void deleteFile(File file) {
+        boolean wasDeleted = file.delete();
+        if (wasDeleted) {
+            logger.info("File " + file.getName() + " was deleted successfully...");
+        } else {
+            logger.info("Failed to delete the file " + file.getName() + "....");
+        }
     }
 }
