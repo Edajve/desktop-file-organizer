@@ -7,6 +7,7 @@ import org.example.src.constants.Ignore;
 import org.example.src.operations.FileOperations;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,7 @@ public class Delete {
 
     final private FileOperations fileOperations;
     final private Desktop desktop;
-    final private List<String> arguments;
+    private List<String> arguments;
 
     public Delete(List<String> arguments) {
         this.arguments = arguments;
@@ -37,8 +38,7 @@ public class Delete {
     }
 
     private void clear() {
-        // figure why this is making test fail in 'DesktopTest.java'
-        getArguments().clear();
+        this.arguments = new ArrayList<>();
     }
 
     public void execute() {
@@ -60,11 +60,9 @@ public class Delete {
 
     private void deleteAllFiles(Optional<File[]> allFiles) {
         Arrays.stream(allFiles.get()).forEach(file -> {
-            boolean ifFileDoesntEqualWordsToIgnore = !(file.getName().equals(Ignore.DirectoryName.DS_STORE)) &&
-                    !(file.getName().equals(Ignore.DirectoryName.LOCALIZE) &&
-                            !(file.getName().equals(Ignore.DirectoryName.DONT_DELETE)));
-
-            if (ifFileDoesntEqualWordsToIgnore) this.fileOperations.deleteFile(file);
+            if (!Ignore.DirectoryName.DIRECTORIES_TO_IGNORE.contains(file.getName())) {
+                this.fileOperations.deleteFile(file);
+            }
         });
     }
 }

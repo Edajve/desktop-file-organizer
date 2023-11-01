@@ -40,12 +40,8 @@ public class Desktop {
         if (allFiles.isEmpty()) logger.info("There are no files on the desktop..");
 
         assert allFiles.isPresent();
-        boolean ifFileDoesntEqualWordsToIgnore;
         for (File file : allFiles.get()) {
-            ifFileDoesntEqualWordsToIgnore = !(file.getName().equals(Ignore.DirectoryName.DS_STORE)) &&
-                    !(file.getName().equals(Ignore.DirectoryName.LOCALIZE) &&
-                            !(file.getName().equals(Ignore.DirectoryName.DONT_DELETE)));
-            if (ifFileDoesntEqualWordsToIgnore) {
+            if (!Ignore.DirectoryName.DIRECTORIES_TO_IGNORE.contains(file.getName())) {
                 currentDesktopState.add(file);
             }
         }
