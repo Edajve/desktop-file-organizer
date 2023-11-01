@@ -56,15 +56,17 @@ public class FileOperations {
     private void moveFileToDestination(File file, String keyword) throws IOException {
         Map<String, String> keywordToPathMap = KeyWords.generateKeywordToPathMapping();
         String relativePath = keywordToPathMap.get(keyword);
+
         String finalFileName = this.utility.stripKeyWord(file.getName());
+
         Path fullDestinationPath = Paths.get(DirectoryPaths.ROOT_DIRECTORY + File.separator + relativePath + File.separator + finalFileName);
         Path targetPath = file.toPath();
         moveFile(targetPath, fullDestinationPath);
     }
 
-    private void moveFile(Path startingPoint, Path destination) throws IOException {
-        String formattedString = String.format("File '%s' at path '%s' was moved to path '%s'...", startingPoint.getFileName(), startingPoint, destination);
+    private void moveFile(Path startingPath, Path destinationPath) throws IOException {
+        String formattedString = String.format("File '%s' at path '%s' was moved to path '%s'...", startingPath.getFileName(), startingPath, destinationPath);
         logger.info(formattedString);
-        Files.move(startingPoint, destination, REPLACE_EXISTING);
+        Files.move(startingPath, destinationPath, REPLACE_EXISTING);
     }
 }
