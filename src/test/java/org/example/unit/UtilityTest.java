@@ -1,10 +1,9 @@
-package org.example.tests;
+package org.example.unit;
 
 import org.example.src.utils.Utility;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 
 public class UtilityTest {
     Utility underTest = new Utility();

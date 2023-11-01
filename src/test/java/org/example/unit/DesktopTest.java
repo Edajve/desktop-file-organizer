@@ -1,4 +1,4 @@
-package org.example.tests;
+package org.example.unit;
 
 import org.example.src.Scanners.Desktop;
 import org.example.src.operations.FileOperations;
@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DesktopTest {
 
     Desktop underTest = new Desktop(new FileOperations(new Utility()));
-
 
     @Test
     public void populatePrivateMemberIfDoesNotMatch_WhenListMatch_ExistingListShouldNotUpdate() {

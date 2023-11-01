@@ -1,4 +1,4 @@
-package org.example.tests;
+package org.example.unit;
 
 import org.example.src.Scanners.Desktop;
 import org.example.src.constants.DirectoryPaths;

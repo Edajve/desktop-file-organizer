@@ -1,4 +1,4 @@
-package org.example.tests;
+package org.example.unit;
 
 import org.example.src.operations.CommandLineParser;
 import org.junit.jupiter.api.AfterEach;
