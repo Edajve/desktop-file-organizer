@@ -26,7 +26,8 @@ public class Desktop {
     }
 
     /**
-     * Scans the desktop and adds all files to the private member variable 'desktopFile'
+     * Scans the desktop and operates on any file(s) that have a prefix,
+     * it will choose the operation based on the prefix of the file
      */
     public void pollDesktop() throws IOException {
 
