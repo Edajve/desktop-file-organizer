@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Delete {
-
     private static final Logger logger = LogManager.getLogger(Delete.class);
-
     final private FileOperations fileOperations;
     final private Desktop desktop;
     private List<String> arguments;

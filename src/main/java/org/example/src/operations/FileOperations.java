@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class FileOperations {
-
     final private Delete delete;
     final private Utility utility;
     final private Move move;
@@ -20,11 +19,13 @@ public class FileOperations {
         this.move = new Move();
         this.delete = new Delete();
     }
+
     public FileOperations(Utility utility) {
         this.utility = utility;
         this.move = new Move();
         this.delete = new Delete();
     }
+
     private static final Logger logger = LogManager.getLogger(FileOperations.class);
 
     public void processFilesBasedOnCriteria(List<File> files) throws IOException {
