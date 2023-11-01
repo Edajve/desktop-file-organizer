@@ -1,4 +1,4 @@
-package org.example.src;
+package org.example.tests;
 
 import org.example.src.Scanners.Desktop;
 import org.example.src.operations.FileOperations;
