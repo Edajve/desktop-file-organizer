@@ -9,5 +9,4 @@ import io.cucumber.junit.platform.engine.Cucumber;
         // , glue = "path.to.your.step.definitions" // only if you need to specify a package other than the default
 )
 public class Runner {
-// No need for the empty test method anymore
 }
