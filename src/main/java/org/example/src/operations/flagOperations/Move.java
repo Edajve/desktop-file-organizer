@@ -2,9 +2,8 @@ package org.example.src.operations.flagOperations;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.src.constants.DirectoryPaths;
+import org.example.src.constants.PathConstants;
 import org.example.src.constants.KeyWords;
-import org.example.src.operations.FileOperations;
 import org.example.src.utils.Utility;
 
 import java.io.File;
@@ -25,7 +24,7 @@ public class Move {
 
         String finalFileName = this.utility.stripKeyWord(file.getName());
 
-        Path fullDestinationPath = Paths.get(DirectoryPaths.ROOT_DIRECTORY + File.separator + relativePath + File.separator + finalFileName);
+        Path fullDestinationPath = Paths.get(PathConstants.ROOT_DIRECTORY + File.separator + relativePath + File.separator + finalFileName);
         Path targetPath = file.toPath();
         moveFile(targetPath, fullDestinationPath);
     }

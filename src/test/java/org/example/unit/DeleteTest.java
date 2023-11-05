@@ -1,7 +1,7 @@
 package org.example.unit;
 
 import org.example.src.Scanners.Desktop;
-import org.example.src.constants.DirectoryPaths;
+import org.example.src.constants.PathConstants;
 import org.example.src.operations.FileOperations;
 import org.example.src.operations.flagOperations.Delete;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ public class DeleteTest {
     public void execute_delete_all_should_delete_all_files() {
         // Given
         Desktop desktop = new Desktop(new FileOperations());
-        desktop.setDesktopDirectory(DirectoryPaths.DESKTOP_TEST_PATH);
+        desktop.setDesktopDirectory(PathConstants.DESKTOP_TEST_PATH);
         List<String> arguments = List.of("-d", "all");
         underTest = new Delete(arguments, desktop);
 

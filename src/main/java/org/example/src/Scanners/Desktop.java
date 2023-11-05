@@ -2,7 +2,7 @@ package org.example.src.Scanners;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.src.constants.DirectoryPaths;
+import org.example.src.constants.PathConstants;
 import org.example.src.constants.Ignore;
 import org.example.src.constants.KeyWords;
 import org.example.src.operations.FileOperations;
@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Desktop {
     private static final Logger logger = LogManager.getLogger(Desktop.class);
-    private File desktopDir = new File(DirectoryPaths.DESKTOP_PATH);
+    private File desktopDir = new File(PathConstants.DESKTOP_PATH);
     private final List<File> desktopFiles = new ArrayList<>();
     private final FileOperations fileOperations;
 
