@@ -11,7 +11,6 @@ public class Hooks {
     @Given("There is a desktop folder named {string}")
     public void thereIsADesktopFolderNamed(String folderName) {
         // create the proper directory for which all the integration tests will run in
-        System.out.println("setting up --------------");
         if (!desktopPath.exists() || !desktopPath.isDirectory())
             System.out.println("desktop file does not exist");
 

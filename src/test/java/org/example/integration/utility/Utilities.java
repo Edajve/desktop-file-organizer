@@ -9,9 +9,10 @@ import java.util.List;
 public class Utilities {
     public static void createFilesInTestDirectory(List<String> fileNames) throws IOException {
         for (String file : fileNames) {
-            File f = new File(PathConstants.TEST_DIRECTORY_PATH + file);
+            File f = new File(PathConstants.TEST_DIRECTORY_PATH + File.separator + file);
+            System.out.println(f);
             boolean isFileCreated = f.createNewFile();
-            if (isFileCreated) System.out.println("File created successfully");
+            if (isFileCreated) System.out.println("File created successfully at path " + f);
             else System.out.println("File NOT created successfully because it has already been created");
         }
     }
