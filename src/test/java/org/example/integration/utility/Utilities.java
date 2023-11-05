@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class Utilities {
-    public static void createFilesOnDesktop(List<String> fileNames) throws IOException {
+    public static void createFilesInTestDirectory(List<String> fileNames) throws IOException {
         for (String file : fileNames) {
             File f = new File(PathConstants.TEST_DIRECTORY_PATH + file);
             boolean isFileCreated = f.createNewFile();

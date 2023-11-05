@@ -12,12 +12,11 @@ public class KeyWordFunctionalitySteps {
 
     @Given("there is a file called {string}")
     public void thereIsAFileCalled(String fileName) throws IOException {
-        Utilities.createFilesOnDesktop(Collections.singletonList(fileName));
+        Utilities.createFilesInTestDirectory(Collections.singletonList(fileName));
     }
 
     @When("program is ran the file {string} should be deleted")
-    public void programIsRanTheFileShouldBeDeleted(String arg0) {
-
+    public void program_is_ran_the_file_should_be_deleted(String string) {
     }
 
     @Then("clean up files")
