@@ -38,7 +38,6 @@ public class BackGroundSteps {
 
     @And("two files named {string} and {string}")
     public void twoFilesNamedAnd(String firstFileName, String secondFileName) throws Exception {
-        System.out.println("Got here-------------------");
         try {
             File firstFile = new File(desktopDir + File.separator + secondFileName);
             File secondFile = new File(desktopDir + File.separator + firstFileName);

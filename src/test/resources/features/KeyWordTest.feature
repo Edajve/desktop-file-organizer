@@ -7,4 +7,8 @@ Feature: Keyword functionality
   Scenario: Two plus two equal 9
     Given we have "2" and "2"
     When we add them together
-    Then it should equal "10", hopefully
+    Then it should equal "9", hopefully
+
+  Scenario: Clean up
+    When all files are deleted in above tests
+    Then there should be no files or directectories left

@@ -42,6 +42,6 @@ public class FakeTestSteps {
     @Then("it should equal {string}, hopefully")
     public void it_should_equal_hopefully(String string) {
         int result = (int) scenarioContext.get("result");
-        assertEquals(string, result);
+        assertEquals(String.valueOf(string), String.valueOf(result));
     }
 }
