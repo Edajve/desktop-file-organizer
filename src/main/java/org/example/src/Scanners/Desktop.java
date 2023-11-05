@@ -18,11 +18,13 @@ public class Desktop {
     private File desktopDir = new File(PathConstants.DESKTOP_PATH);
     private final List<File> desktopFiles = new ArrayList<>();
     private final FileOperations fileOperations;
+
     public Desktop(FileOperations fileOperations) {
         this.fileOperations = fileOperations;
     }
+
     public void setDesktopDirectory(String file) {
-        this.desktopDir =  new File(file);
+        this.desktopDir = new File(file);
     }
 
     public String getDesktopDirectory() {
@@ -34,8 +36,6 @@ public class Desktop {
      * it will choose the operation based on the prefix of the file
      */
     public void pollDesktop() throws IOException {
-        logger.info("program is pointing to main path : " + getDesktopDirectory());
-        logger.info("program is pointing to main path : " + this.desktopDir.getAbsolutePath());
         if (!this.desktopDir.exists() || !this.desktopDir.isDirectory()) {
             logger.error("Desktop directory does not exist..");
         }
