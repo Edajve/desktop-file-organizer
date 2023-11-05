@@ -14,6 +14,7 @@ public class FileOperations {
     final private Delete delete;
     final private Utility utility;
     final private Move move;
+    private static final Logger logger = LogManager.getLogger(FileOperations.class);
     public FileOperations() {
         this.utility = null;
         this.move = new Move();
@@ -25,8 +26,6 @@ public class FileOperations {
         this.move = new Move();
         this.delete = new Delete();
     }
-
-    private static final Logger logger = LogManager.getLogger(FileOperations.class);
 
     public void processFilesBasedOnCriteria(List<File> files) throws IOException {
 

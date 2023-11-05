@@ -5,5 +5,7 @@ Feature: Keyword functionality
 
   Scenario: Delete file with the "trash-" appended
     Given there is a file called "trash-test-file-one"
-    When program is ran the file "trash-test-file-one" should be deleted
-    Then clean up files
+    When the program is ran
+    Then the file "trash-test-file-one" should be deleted
+#    Then clean up files
+    Then shut down program

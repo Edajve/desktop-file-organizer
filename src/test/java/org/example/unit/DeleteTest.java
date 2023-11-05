@@ -20,7 +20,7 @@ public class DeleteTest {
     public void execute_delete_all_should_delete_all_files() {
         // Given
         Desktop desktop = new Desktop(new FileOperations());
-        desktop.setDesktopDirectory(PathConstants.DESKTOP_TEST_PATH);
+        desktop.setDesktopDirectory(PathConstants.UNIT_TEST_PATH);
         List<String> arguments = List.of("-d", "all");
         underTest = new Delete(arguments, desktop);
 

@@ -1,12 +1,6 @@
 package org.example.integration.steps;
 
-import io.cucumber.java.en.Given;
-import org.example.src.constants.PathConstants;
-
-import java.io.File;
-
 public class Hooks {
-
-
-
+    // create a method that sets up all of these directory to test directory
+    //    desktop.setDesktop() static method to inside the test directory
 }

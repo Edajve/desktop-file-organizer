@@ -9,6 +9,8 @@ import org.example.src.operations.FileOperations;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Desktop {
@@ -16,13 +18,15 @@ public class Desktop {
     private File desktopDir = new File(PathConstants.DESKTOP_PATH);
     private final List<File> desktopFiles = new ArrayList<>();
     private final FileOperations fileOperations;
-
     public Desktop(FileOperations fileOperations) {
         this.fileOperations = fileOperations;
     }
-
     public void setDesktopDirectory(String file) {
         this.desktopDir =  new File(file);
+    }
+
+    public String getDesktopDirectory() {
+        return desktopDir.toString();
     }
 
     /**
@@ -30,7 +34,8 @@ public class Desktop {
      * it will choose the operation based on the prefix of the file
      */
     public void pollDesktop() throws IOException {
-
+        logger.info("program is pointing to main path : " + getDesktopDirectory());
+        logger.info("program is pointing to main path : " + this.desktopDir.getAbsolutePath());
         if (!this.desktopDir.exists() || !this.desktopDir.isDirectory()) {
             logger.error("Desktop directory does not exist..");
         }
@@ -87,5 +92,14 @@ public class Desktop {
 
     public Optional<File[]> getAllFiles() {
         return Optional.ofNullable(this.desktopDir.listFiles());
+    }
+
+    public void deleteFile(String filename) throws IOException {
+        Files.deleteIfExists(Paths.get(getDesktopDirectory(), filename));
+        System.out.println("Deleted file: " + filename);
+    }
+
+    public void cleanUp() {
+        // perform cleanup tasks here, if any
     }
 }
