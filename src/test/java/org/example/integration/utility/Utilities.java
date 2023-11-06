@@ -27,4 +27,8 @@ public class Utilities {
             if (isFileDeleted) System.out.println("deleted file" + f);
         }
     }
+
+    public static File[] getAllFilesFromTestDirectory() {
+        return new File(PathConstants.TEST_DIRECTORY_PATH).listFiles();
+    }
 }
