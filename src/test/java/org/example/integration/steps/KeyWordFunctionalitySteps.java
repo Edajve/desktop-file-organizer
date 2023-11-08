@@ -1,5 +1,6 @@
 package org.example.integration.steps;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,8 +10,12 @@ import org.example.src.constants.PathConstants;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,25 +73,43 @@ public class KeyWordFunctionalitySteps {
         assertEquals(expected, actual);
     }
 
-
-    @Then("clean up files")
-    public void clean_up() throws InterruptedException {
-        Main.stopProgram();
-
-        if (mainThread != null) {
-            mainThread.join();
-        }
-
-        Utilities.cleanOutTestDirectory();
+    @And("there is directory called {string}")
+    public void thereIsDirectoryCalled(String directoryName) {
+        String testDirectoryPath = PathConstants.TEST_DIRECTORY_PATH + File.separator + directoryName;
+        File file = new File(testDirectoryPath);
+        boolean wasDirectoryMade = file.mkdir();
+        if (wasDirectoryMade) System.out.println("directory: " + directoryName + "was made");
+        else System.out.println("directory: " + directoryName + " was made not made because it is already made");
     }
 
+    @Then("the file {string} should be moved into directory {string}")
+    public void theFileShouldBeMovedIntoDirectory(String fileName, String directoryName) {
+        String directoryPath = PathConstants.TEST_DIRECTORY_PATH + File.separator + directoryName;
+        File file = new File(directoryPath);
+
+        boolean wasSuccessfullyMoved = false;
+        File[] files = Objects.requireNonNull(file.listFiles());
+        for (File nameOfFile : files) {
+            System.out.println(nameOfFile.getName());
+            if (nameOfFile.getName().equals(fileName)) {
+                wasSuccessfullyMoved = true;
+                break;
+            }
+        }
+
+        assertTrue(wasSuccessfullyMoved);
+    }
+
+    @Then("clean up files")
+    public void clean_up() {
+        Utilities.cleanOutTestDirectory();
+    }
 
     @Then("shut down program")
     public void shutDownProgram() throws InterruptedException {
         if (mainThread != null && mainThread.isAlive()) {
             Main.stopProgram();
             mainThread.join(); // Wait for the main program to finish
-            assertTrue(true);
         }
     }
 }

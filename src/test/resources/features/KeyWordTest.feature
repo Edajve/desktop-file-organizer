@@ -9,3 +9,12 @@ Feature: Keyword functionality
     Then the file "trash-test-file-one" should be deleted
     Then clean up files
     Then shut down program
+
+
+  Scenario: Move file with the "testMoveKeyWord-" appended
+    Given there is a file called "testMoveKeyWord-test-file-one"
+    And there is directory called "move-test-directory"
+    When the program is ran
+    Then the file "test-file-one" should be moved into directory "move-test-directory"
+    Then clean up files
+    Then shut down program
