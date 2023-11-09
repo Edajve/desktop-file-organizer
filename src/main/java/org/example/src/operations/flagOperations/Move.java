@@ -2,8 +2,8 @@ package org.example.src.operations.flagOperations;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.src.constants.PathConstants;
 import org.example.src.constants.KeyWords;
+import org.example.src.constants.PathConstants;
 import org.example.src.utils.Utility;
 
 import java.io.File;
@@ -18,6 +18,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 public class Move {
     private static final Logger logger = LogManager.getLogger(Move.class);
     private final Utility utility = new Utility();
+
     public void moveFileToDestination(File file, String keyword) throws IOException {
         Map<String, String> keywordToPathMap = KeyWords.generateKeywordToPathMapping();
         String relativePath = keywordToPathMap.get(keyword);
@@ -26,7 +27,7 @@ public class Move {
 
         Path fullDestinationPath = Paths.get(PathConstants.ROOT_DIRECTORY + File.separator + relativePath + File.separator + finalFileName);
         Path targetPath = file.toPath();
-        moveFile(targetPath, fullDestinationPath);
+        moveFile(targetPath, fullDestinationPath.normalize());
     }
 
     private void moveFile(Path startingPath, Path destinationPath) throws IOException {

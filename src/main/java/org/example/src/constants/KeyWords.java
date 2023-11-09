@@ -23,6 +23,9 @@ public class KeyWords {
         keywordToPath.put("p00", "04-videos-and-screenshots/01-Knowledge-Transfer/05-processes");
         keywordToPath.put("lkdn", "04-videos-and-screenshots/01-Knowledge-Transfer/04-general-knowledge/linkedIn");
         keywordToPath.put("trash", "trash");
+
+        // test keyword and path
+        keywordToPath.put("testMoveKeyWord", "/../../Desktop/integration-test-directory/move-test-directory");
         return keywordToPath;
     }
 }
