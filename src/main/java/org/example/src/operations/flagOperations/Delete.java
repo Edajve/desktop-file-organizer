@@ -46,25 +46,44 @@ public class Delete {
     }
 
     public void execute() {
-        List<String> filesToDelete = getArguments().subList(1, getArguments().size()); // exclude the first argument
+        List<String> arguments = getArguments();
+        List<String> filesToDelete = arguments.subList(1, arguments.size());
+
         for (String argument : filesToDelete) {
             if (argument.equalsIgnoreCase("all")) {
-                Optional<File[]> allFiles = this.desktop.getAllFiles();
-                if (allFiles.isEmpty()) logger.error("There are no files on the desktop");
-                deleteAllFiles(allFiles);
-                break;
+                handleDeleteAllFiles();
+                break; // Stop further processing as "all" implies handling every file
+            } else if (argument.equalsIgnoreCase("allTest")) {
+                handleDeleteAllTestFiles();
+                break; // Stop further processing as "allTest" implies a specific batch operation
             } else {
-                if (argument.contains("testie")) {
-                    this.desktop.setDesktopDir((PathConstants.TEST_DIRECTORY_PATH));
-                    String path = this.desktop.getPath(argument);
-                    deleteFile(new File(path));
-                } else {
-                    String path = this.desktop.getPath(argument);
-                    deleteFile(new File(path));
-                }
+                handleIndividualFileDeletion(argument);
             }
         }
+
         clear();
+    }
+
+    private void handleDeleteAllFiles() {
+        Optional<File[]> allFiles = this.desktop.getAllFiles();
+        if (!allFiles.isPresent()) {
+            logger.error("There are no files on the desktop");
+        } else {
+            deleteAllFiles(Optional.of(allFiles.get())); // Assuming deleteAllFiles(File[] files) method exists
+        }
+    }
+
+    private void handleDeleteAllTestFiles() {
+        this.desktop.setDesktopDirectory(PathConstants.TEST_DIRECTORY_PATH);
+        handleDeleteAllFiles(); // Reuses the logic for deleting all files
+    }
+
+    private void handleIndividualFileDeletion(String argument) {
+        if (argument.contains("testie")) {
+            this.desktop.setDesktopDirectory(PathConstants.TEST_DIRECTORY_PATH);
+        }
+        String path = this.desktop.getPath(argument);
+        deleteFile(new File(path)); // Assuming deleteFile(File file) method exists
     }
 
     private void deleteAllFiles(Optional<File[]> allFiles) {
