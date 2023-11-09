@@ -86,6 +86,10 @@ public class Desktop {
         return filesToMove;
     }
 
+    public void setDesktopDir(String path) {
+        this.desktopDir = new File(path);
+    }
+
     public String getPath(String fileName) {
         return this.desktopDir + File.separator + fileName;
     }

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.src.Scanners.Desktop;
 import org.example.src.constants.Ignore;
+import org.example.src.constants.PathConstants;
 import org.example.src.operations.FileOperations;
 
 import java.io.File;
@@ -45,17 +46,22 @@ public class Delete {
     }
 
     public void execute() {
-        List<String> filesToDelete = getArguments().subList(1, getArguments().size());
+        List<String> filesToDelete = getArguments().subList(1, getArguments().size()); // exclude the first argument
         for (String argument : filesToDelete) {
             if (argument.equalsIgnoreCase("all")) {
                 Optional<File[]> allFiles = this.desktop.getAllFiles();
                 if (allFiles.isEmpty()) logger.error("There are no files on the desktop");
-
                 deleteAllFiles(allFiles);
                 break;
             } else {
-                String path = this.desktop.getPath(argument);
-                deleteFile(new File(path));
+                if (argument.contains("testie")) {
+                    this.desktop.setDesktopDir((PathConstants.TEST_DIRECTORY_PATH));
+                    String path = this.desktop.getPath(argument);
+                    deleteFile(new File(path));
+                } else {
+                    String path = this.desktop.getPath(argument);
+                    deleteFile(new File(path));
+                }
             }
         }
         clear();
@@ -76,5 +82,9 @@ public class Delete {
         } else {
             logger.info("Failed to delete the file " + file.getName() + "....");
         }
+    }
+
+    public static void passArgumentsIntoProgram() {
+
     }
 }

@@ -5,6 +5,7 @@ import org.example.src.constants.PathConstants;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PipedInputStream;
 import java.util.List;
 
 public class Driver {
@@ -49,7 +50,27 @@ public class Driver {
         Thread.sleep(2000);
         mainThread = new Thread(() -> {
             try {
-                Main.main(new String[]{PathConstants.TEST_DIRECTORY_PATH});
+                Main.main(new String[]{PathConstants.TEST_DIRECTORY_PATH}, null);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        mainThread.start();
+
+        try {
+            // Delay for 2 seconds to allow the Main program to process
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Interrupted while waiting for file processing");
+        }
+    }
+
+    public static void runSystemUnderTest(PipedInputStream pipedIn) throws InterruptedException {
+        Thread.sleep(2000);
+        mainThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{PathConstants.TEST_DIRECTORY_PATH}, pipedIn);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

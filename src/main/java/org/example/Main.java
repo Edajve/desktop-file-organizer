@@ -5,7 +5,10 @@ import org.example.src.operations.CommandLineParser;
 import org.example.src.operations.FileOperations;
 import org.example.src.utils.Utility;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PipedInputStream;
 import java.util.Scanner;
 
 public class Main {
@@ -14,17 +17,25 @@ public class Main {
     private static CommandLineParser parser;
     private static Scanner scanner;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args, PipedInputStream pipedIn) throws IOException {
         System.out.println("Started-----");
         desktop = new Desktop(new FileOperations(new Utility()));
         parser = new CommandLineParser();
-        scanner = new Scanner(System.in);
+
+        // Check if the pipedIn argument has been passed, otherwise use System.in
+        InputStream inputStream = args.length > 1 ? new ByteArrayInputStream(args[1].getBytes()) : System.in;
+        scanner = new Scanner(inputStream);
 
         if (args.length > 0) desktop.setDesktopDirectory(args[0]);
 
         setupShutdownHook();
 
-        runCommandLoop();
+        // If a PipedInputStream is passed, use it as input
+        if (pipedIn != null) {
+            scanner = new Scanner(pipedIn);
+        }
+
+        runCommandLoop(scanner);
     }
 
     private static void setupShutdownHook() {
@@ -34,7 +45,7 @@ public class Main {
         }));
     }
 
-    private static void runCommandLoop() {
+    private static void runCommandLoop(Scanner inputScanner) {
         boolean firstTry = true;
 
         try {
@@ -44,8 +55,8 @@ public class Main {
                     firstTry = false;
                 }
 
-                if (scanner.hasNextLine()) {
-                    String[] arguments = parser.splitArgument(scanner.nextLine().toLowerCase());
+                if (inputScanner.hasNextLine()) {
+                    String[] arguments = parser.splitArgument(inputScanner.nextLine().toLowerCase());
                     continueProgram = parser.processArguments(arguments);
                 } else {
                     continueProgram = false; // Stop if there are no more lines to read (e.g., EOF or stream closed)
@@ -54,7 +65,7 @@ public class Main {
         } catch (IOException e) {
             System.err.println("An I/O error occurred: " + e.getMessage());
         } finally {
-            scanner.close();
+            inputScanner.close();
             desktop.cleanUp();
         }
     }
