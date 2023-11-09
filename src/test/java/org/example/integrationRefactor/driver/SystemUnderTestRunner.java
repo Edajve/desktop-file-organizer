@@ -26,8 +26,6 @@ public class SystemUnderTestRunner {
             }
         });
         mainThread.start();
-
-        // ...existing delay logic...
     }
 
     public void sendCommandToSystemUnderTest(String command) throws IOException {
@@ -35,6 +33,4 @@ public class SystemUnderTestRunner {
         pipedOut.write((command + System.lineSeparator()).getBytes());
         pipedOut.flush();
     }
-
-    // Include methods for cleanup if necessary
 }
