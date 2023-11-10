@@ -15,8 +15,8 @@ import java.util.Optional;
 
 public class Delete {
     private static final Logger logger = LogManager.getLogger(Delete.class);
-    final private FileOperations fileOperations;
-    final private Desktop desktop;
+    private FileOperations fileOperations;
+    private Desktop desktop;
     private List<String> arguments;
 
     public Delete() {
@@ -37,14 +37,6 @@ public class Delete {
         this.desktop = desktop;
     }
 
-    public List<String> getArguments() {
-        return this.arguments;
-    }
-
-    private void clear() {
-        this.arguments = new ArrayList<>();
-    }
-
     public void execute() {
         List<String> arguments = getArguments();
         List<String> filesToDelete = arguments.subList(1, arguments.size());
@@ -52,11 +44,11 @@ public class Delete {
         for (String argument : filesToDelete) {
             if (argument.equalsIgnoreCase("all")) {
                 handleDeleteAllFiles();
-                break; // Stop further processing as "all" implies handling every file
+                break;
             } else if (argument.equalsIgnoreCase("allTest")) {
                 this.desktop.setDesktopDirectory(PathConstants.TEST_DIRECTORY_PATH);
                 handleDeleteAllFiles();
-                break; // Stop further processing as "allTest" implies a specific batch operation
+                break;
             } else {
                 handleIndividualFileDeletion(argument);
             }
@@ -65,12 +57,16 @@ public class Delete {
         clear();
     }
 
+    public List<String> getArguments() {
+        return this.arguments;
+    }
+
     private void handleDeleteAllFiles() {
         Optional<File[]> allFiles = this.desktop.getAllFiles();
         if (!allFiles.isPresent()) {
             logger.error("There are no files on the desktop");
         } else {
-            deleteAllFiles(Optional.of(allFiles.get()));
+            deleteAllFiles(allFiles.get());
         }
     }
 
@@ -79,11 +75,11 @@ public class Delete {
             this.desktop.setDesktopDirectory(PathConstants.TEST_DIRECTORY_PATH);
         }
         String path = this.desktop.getPath(argument);
-        deleteFile(new File(path)); // Assuming deleteFile(File file) method exists
+        deleteFile(new File(path));
     }
 
-    private void deleteAllFiles(Optional<File[]> allFiles) {
-        Arrays.stream(allFiles.get()).forEach(file -> {
+    private void deleteAllFiles(File[] allFiles) {
+        Arrays.stream(allFiles).forEach(file -> {
             if (!Ignore.DirectoryName.DIRECTORIES_TO_IGNORE.contains(file.getName())) {
                 deleteFile(file);
             }
@@ -97,5 +93,9 @@ public class Delete {
         } else {
             logger.info("Failed to delete the file " + file.getName() + "....");
         }
+    }
+
+    private void clear() {
+        this.arguments = new ArrayList<>();
     }
 }
