@@ -15,6 +15,7 @@ public class FileOperations {
     final private Utility utility;
     final private Move move;
     private static final Logger logger = LogManager.getLogger(FileOperations.class);
+
     public FileOperations() {
         this.utility = null;
         this.move = new Move();

@@ -8,9 +8,9 @@ public class AllowedArguments {
     public static String arguments = Arrays.toString(new String[]{
             "-open",
             "-delete",
-            "-show",
+            "-move",
             "-o",
             "-d",
-            "-s"
+            "-m"
     });
 }

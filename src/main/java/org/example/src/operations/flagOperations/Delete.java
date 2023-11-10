@@ -54,7 +54,8 @@ public class Delete {
                 handleDeleteAllFiles();
                 break; // Stop further processing as "all" implies handling every file
             } else if (argument.equalsIgnoreCase("allTest")) {
-                handleDeleteAllTestFiles();
+                this.desktop.setDesktopDirectory(PathConstants.TEST_DIRECTORY_PATH);
+                handleDeleteAllFiles();
                 break; // Stop further processing as "allTest" implies a specific batch operation
             } else {
                 handleIndividualFileDeletion(argument);
@@ -69,13 +70,8 @@ public class Delete {
         if (!allFiles.isPresent()) {
             logger.error("There are no files on the desktop");
         } else {
-            deleteAllFiles(Optional.of(allFiles.get())); // Assuming deleteAllFiles(File[] files) method exists
+            deleteAllFiles(Optional.of(allFiles.get()));
         }
-    }
-
-    private void handleDeleteAllTestFiles() {
-        this.desktop.setDesktopDirectory(PathConstants.TEST_DIRECTORY_PATH);
-        handleDeleteAllFiles(); // Reuses the logic for deleting all files
     }
 
     private void handleIndividualFileDeletion(String argument) {
@@ -101,9 +97,5 @@ public class Delete {
         } else {
             logger.info("Failed to delete the file " + file.getName() + "....");
         }
-    }
-
-    public static void passArgumentsIntoProgram() {
-
     }
 }

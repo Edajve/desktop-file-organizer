@@ -2,9 +2,9 @@ package org.example.src.Scanners;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.src.constants.PathConstants;
 import org.example.src.constants.Ignore;
 import org.example.src.constants.KeyWords;
+import org.example.src.constants.PathConstants;
 import org.example.src.operations.FileOperations;
 
 import java.io.File;
@@ -101,9 +101,5 @@ public class Desktop {
     public void deleteFile(String filename) throws IOException {
         Files.deleteIfExists(Paths.get(getDesktopDirectory(), filename));
         System.out.println("Deleted file: " + filename);
-    }
-
-    public void cleanUp() {
-        // perform cleanup tasks here, if any
     }
 }

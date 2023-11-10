@@ -11,19 +11,15 @@ public class SystemUnderTestRunner {
     private final PipedInputStream pipedIn;
     private final PipedOutputStream pipedOut;
 
-    public SystemUnderTestRunner() throws IOException, IOException {
+    public SystemUnderTestRunner() throws IOException {
         pipedOut = new PipedOutputStream();
         pipedIn = new PipedInputStream(pipedOut);
     }
 
-    public void runSystemUnderTest() throws InterruptedException {
+    public void runSystemUnderTest() {
         Thread mainThread = new Thread(() -> {
-            try {
-                // Pass the piped input stream to main
-                Main.main(new String[]{PathConstants.TEST_DIRECTORY_PATH}, pipedIn);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            // Pass the piped input stream to main
+            Main.entry(new String[]{PathConstants.TEST_DIRECTORY_PATH}, pipedIn);
         });
         mainThread.start();
     }

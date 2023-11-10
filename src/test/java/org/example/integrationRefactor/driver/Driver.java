@@ -49,11 +49,7 @@ public class Driver {
     public static void runSystemUnderTest() throws InterruptedException {
         Thread.sleep(2000);
         mainThread = new Thread(() -> {
-            try {
-                Main.main(new String[]{PathConstants.TEST_DIRECTORY_PATH}, null);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Main.entry(new String[]{PathConstants.TEST_DIRECTORY_PATH}, null);
         });
         mainThread.start();
 
@@ -69,11 +65,7 @@ public class Driver {
     public static void runSystemUnderTest(PipedInputStream pipedIn) throws InterruptedException {
         Thread.sleep(2000);
         mainThread = new Thread(() -> {
-            try {
-                Main.main(new String[]{PathConstants.TEST_DIRECTORY_PATH}, pipedIn);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Main.entry(new String[]{PathConstants.TEST_DIRECTORY_PATH}, pipedIn);
         });
         mainThread.start();
 

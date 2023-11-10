@@ -15,24 +15,30 @@ public class Main {
     private static volatile boolean continueProgram = true; // volatile to ensure thread visibility
     private static Desktop desktop;
     private static CommandLineParser parser;
-    private static Scanner scanner;
 
-    public static void main(String[] args, PipedInputStream pipedIn) throws IOException {
+    public static void main(String[] args) {
+        Main.entry(new String[]{}, null);
+    }
+
+    public static void entry(String[] args, PipedInputStream pipedIn) {
         System.out.println("Started-----");
         desktop = new Desktop(new FileOperations(new Utility()));
         parser = new CommandLineParser();
 
         // Check if the pipedIn argument has been passed, otherwise use System.in
         InputStream inputStream = args.length > 1 ? new ByteArrayInputStream(args[1].getBytes()) : System.in;
-        scanner = new Scanner(inputStream);
+        Scanner scanner = new Scanner(inputStream);
 
         if (args.length > 0) desktop.setDesktopDirectory(args[0]);
 
         setupShutdownHook();
 
         // If a PipedInputStream is passed, use it as input
-        if (pipedIn != null) {
-            scanner = new Scanner(pipedIn);
+        try {
+            if (pipedIn != null) {
+                scanner = new Scanner(pipedIn);
+            }
+        } catch (Exception ignored) {
         }
 
         runCommandLoop(scanner);
@@ -66,7 +72,6 @@ public class Main {
             System.err.println("An I/O error occurred: " + e.getMessage());
         } finally {
             inputScanner.close();
-            desktop.cleanUp();
         }
     }
 
