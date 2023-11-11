@@ -43,7 +43,7 @@ public class Move {
     }
 
     public Move(List<String> arguments) {
-        this.arguments = arguments;
+        this.arguments =  arguments.subList(1, arguments.size()); // take off the -move or -m flag as its redundant
         this.fileOperations = new FileOperations();
         this.desktop = new Desktop(this.fileOperations);
     }
@@ -57,9 +57,6 @@ public class Move {
     }
 
     public void execute() {
-        List<String> arguments = getArguments();
-        setArguments(arguments.subList(1, arguments.size()));
-
         if (getArguments().get(0).equals("test")) {
             assert this.desktop != null;
             this.desktop.setDesktopDir(PathConstants.TEST_DIRECTORY_PATH);

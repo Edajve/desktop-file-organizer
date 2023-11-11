@@ -31,7 +31,7 @@ public class Delete {
     }
 
     public Delete(List<String> arguments) {
-        this.arguments =  arguments.subList(1, arguments.size());
+        this.arguments =  arguments.subList(1, arguments.size()); // take off the -delete or -d flag as its redundant
         this.fileOperations = new FileOperations();
         this.desktop = new Desktop(this.fileOperations);
     }
@@ -42,7 +42,6 @@ public class Delete {
         this.fileOperations = new FileOperations();
         this.desktop = desktop;
     }
-
 
     public void execute() {
         List<String> filesToDelete = getArguments();
