@@ -8,9 +8,8 @@ public class FlagOperations {
         //Open open = new Open(args);
     }
 
-    // has not started working on yet
     public static void showFlag(List<String> args) {
-        // Move move = new Move();
+         new Move(args).execute();
     }
 
     public static void deleteFlag(List<String> args) {
