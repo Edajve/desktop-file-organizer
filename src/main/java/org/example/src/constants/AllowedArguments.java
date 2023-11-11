@@ -7,10 +7,12 @@ public class AllowedArguments {
     // parameters that can be passed along with the original argument
     public static String arguments = Arrays.toString(new String[]{
             "-open",
-            "-delete",
-            "-move",
             "-o",
+            "-delete",
             "-d",
-            "-m"
+            "-move",
+            "-m",
+            "-rename",
+            "-r"
     });
 }
