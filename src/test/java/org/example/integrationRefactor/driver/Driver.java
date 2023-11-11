@@ -11,7 +11,10 @@ import java.util.List;
 public class Driver {
     private static Thread mainThread;
 
-    public static void createFilesInTestDirectory(List<String> fileNames) throws IOException {
+    /**
+     * adds file under test directory
+     */
+    public static void createFile(List<String> fileNames) throws IOException {
         for (String file : fileNames) {
             File f = new File(PathConstants.TEST_DIRECTORY_PATH + File.separator + file);
             System.out.println(f);

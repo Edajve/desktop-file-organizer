@@ -18,7 +18,7 @@ public class KeyWordFunctionalityTests extends BaseTest {
     @DisplayName("Basic test for trash keyword deleting files")
     public void testing_trash_prefix() throws IOException, InterruptedException {
         setUp();
-        Driver.createFilesInTestDirectory(Collections.singletonList("trash-test-file-one"));
+        Driver.createFile(Collections.singletonList("trash-test-file-one"));
         Driver.runSystemUnderTest();
 
         boolean listContainsTestFile = Arrays.stream(Driver.getAllFilesFromTestDirectory()).anyMatch(
@@ -33,7 +33,7 @@ public class KeyWordFunctionalityTests extends BaseTest {
     public void testing_move_prefix() throws IOException, InterruptedException {
         setUp();
         Driver.createTestDirectory("move-test-directory");
-        Driver.createFilesInTestDirectory(Collections.singletonList("testMoveKeyWord-test-file-one"));
+        Driver.createFile(Collections.singletonList("testMoveKeyWord-test-file-one"));
         Driver.runSystemUnderTest();
 
         boolean wasFileSuccessfullyMoved = false;
