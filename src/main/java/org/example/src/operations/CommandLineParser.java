@@ -15,9 +15,7 @@ import java.util.List;
  * -delete all folders
  * -delete all files
  * -delete {file/folder name}
- * <p>
- * -open {Input file}
- * -open {file} {application}
+
  */
 public class CommandLineParser {
     final private List<String> arguments;
@@ -96,6 +94,9 @@ public class CommandLineParser {
                 break;
             case "-move", "-m":
                 FlagOperations.moveFlag(arguments);
+                break;
+            case "-rename", "-r":
+                FlagOperations.renameFlag(arguments);
                 break;
         }
     }

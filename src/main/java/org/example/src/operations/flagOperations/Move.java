@@ -66,6 +66,7 @@ public class Move {
         }
 
         runThroughArgumentsAndMoveFiles(this.arguments);
+        getArguments().clear();
     }
 
     private void runThroughArgumentsAndMoveFiles(List<String> args) {

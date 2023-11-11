@@ -15,4 +15,8 @@ public class FlagOperations {
     public static void deleteFlag(List<String> args) {
         new Delete(args).execute();
     }
+
+    public static void renameFlag(List<String> args) {
+        new Rename(args).execute();
+    }
 }
