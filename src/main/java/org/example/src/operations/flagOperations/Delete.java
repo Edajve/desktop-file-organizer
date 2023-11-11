@@ -36,13 +36,6 @@ public class Delete {
         this.desktop = new Desktop(this.fileOperations);
     }
 
-    // Constructor for testing purposes
-    public Delete(List<String> arguments, Desktop desktop) {
-        this.arguments = arguments;
-        this.fileOperations = new FileOperations();
-        this.desktop = desktop;
-    }
-
     public void execute() {
         List<String> arguments = getArguments();
         List<String> filesToDelete = arguments.subList(1, arguments.size());
