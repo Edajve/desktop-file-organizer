@@ -22,7 +22,7 @@ public class DeleteOperationTests extends BaseTest {
     @DisplayName("Passing -d and then the file name should delete that file")
     public void testing_delete_prefix() throws IOException, InterruptedException {
         setUp();
-        Driver.createFilesInTestDirectory(Collections.singletonList("file-to-delete-testie"));
+        Driver.createFile(Collections.singletonList("file-to-delete-testie"));
 
         // Initialize the runner
         runner = new SystemUnderTestRunner();
@@ -52,8 +52,8 @@ public class DeleteOperationTests extends BaseTest {
     @DisplayName("Passing -d all should delete all files")
     public void testing_delete_all_prefix() throws IOException, InterruptedException {
         setUp();
-        Driver.createFilesInTestDirectory(Collections.singletonList("file-to-delete-testie"));
-        Driver.createFilesInTestDirectory(Collections.singletonList("file-to-delete-testie2"));
+        Driver.createFile(Collections.singletonList("file-to-delete-testie"));
+        Driver.createFile(Collections.singletonList("file-to-delete-testie2"));
 
         // Initialize the runner
         runner = new SystemUnderTestRunner();
