@@ -48,13 +48,6 @@ public class Move {
         this.desktop = new Desktop(this.fileOperations);
     }
 
-    // Constructor for testing purposes
-    public Move(List<String> arguments, Desktop desktop) {
-        this.arguments = arguments;
-        this.fileOperations = new FileOperations();
-        this.desktop = desktop;
-    }
-
     public List<String> getArguments() {
         return this.arguments;
     }

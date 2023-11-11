@@ -31,15 +31,21 @@ public class Delete {
     }
 
     public Delete(List<String> arguments) {
-        this.arguments = arguments;
+        this.arguments =  arguments.subList(1, arguments.size());
         this.fileOperations = new FileOperations();
         this.desktop = new Desktop(this.fileOperations);
     }
 
-    public void execute() {
-        List<String> arguments = getArguments();
-        List<String> filesToDelete = arguments.subList(1, arguments.size());
+    // Constructor for testing purposes
+    public Delete(List<String> arguments, Desktop desktop) {
+        this.arguments = arguments;
+        this.fileOperations = new FileOperations();
+        this.desktop = desktop;
+    }
 
+
+    public void execute() {
+        List<String> filesToDelete = getArguments();
         for (String argument : filesToDelete) {
             if (argument.equalsIgnoreCase("all")) {
                 handleDeleteAllFiles();
