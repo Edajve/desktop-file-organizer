@@ -13,10 +13,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * TO USE THIS CLASS DURING PROGRAM:
+ * pass -delete or -d then all to delete all
+ * pass -delete or -d then the specific file name to delete a specific file
+ * pass -delete or -d then multiple file names to delete multiple files
+ */
 public class Delete {
     private static final Logger logger = LogManager.getLogger(Delete.class);
-    private FileOperations fileOperations;
-    private Desktop desktop;
+    private final FileOperations fileOperations;
+    private final Desktop desktop;
     private List<String> arguments;
 
     public Delete() {
@@ -46,15 +52,13 @@ public class Delete {
                 handleDeleteAllFiles();
                 break;
             } else if (argument.equalsIgnoreCase("allTest")) {
+                assert this.desktop != null;
                 this.desktop.setDesktopDirectory(PathConstants.TEST_DIRECTORY_PATH);
                 handleDeleteAllFiles();
                 break;
-            } else {
-                handleIndividualFileDeletion(argument);
-            }
+            } else handleIndividualFileDeletion(argument);
         }
-
-        clear();
+        clearArguments();
     }
 
     public List<String> getArguments() {
@@ -62,8 +66,9 @@ public class Delete {
     }
 
     private void handleDeleteAllFiles() {
+        assert this.desktop != null;
         Optional<File[]> allFiles = this.desktop.getAllFiles();
-        if (!allFiles.isPresent()) {
+        if (allFiles.isEmpty()) {
             logger.error("There are no files on the desktop");
         } else {
             deleteAllFiles(allFiles.get());
@@ -72,8 +77,10 @@ public class Delete {
 
     private void handleIndividualFileDeletion(String argument) {
         if (argument.contains("testie")) {
+            assert this.desktop != null;
             this.desktop.setDesktopDirectory(PathConstants.TEST_DIRECTORY_PATH);
         }
+        assert this.desktop != null;
         String path = this.desktop.getPath(argument);
         deleteFile(new File(path));
     }
@@ -95,7 +102,7 @@ public class Delete {
         }
     }
 
-    private void clear() {
+    private void clearArguments() {
         this.arguments = new ArrayList<>();
     }
 }

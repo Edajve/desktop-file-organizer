@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Collections;
 
-public class MoveTest extends BaseTest {
+public class MoveFunctionalityTest extends BaseTest {
 
     @Test
     @DisplayName("Passing -m with a file and a keyword, moves that file to a path based on they keyword")

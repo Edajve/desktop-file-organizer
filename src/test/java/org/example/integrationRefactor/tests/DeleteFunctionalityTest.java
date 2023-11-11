@@ -14,7 +14,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class DeleteOperationTests extends BaseTest {
+public class DeleteFunctionalityTest extends BaseTest {
 
     private SystemUnderTestRunner runner;
 
@@ -24,16 +24,13 @@ public class DeleteOperationTests extends BaseTest {
         setUp();
         Driver.createFile(Collections.singletonList("file-to-delete-testie"));
 
-        // Initialize the runner
         runner = new SystemUnderTestRunner();
         runner.runSystemUnderTest();
 
         Thread.sleep(1200);
 
-        // Send the delete command to the running system
         runner.sendCommandToSystemUnderTest("-d file-to-delete-testie");
 
-        // Wait for the system to process the command
         Thread.sleep(1000);
 
         Arrays.stream(Driver.getAllFilesFromTestDirectory()).forEach(
@@ -55,7 +52,6 @@ public class DeleteOperationTests extends BaseTest {
         Driver.createFile(Collections.singletonList("file-to-delete-testie"));
         Driver.createFile(Collections.singletonList("file-to-delete-testie2"));
 
-        // Initialize the runner
         runner = new SystemUnderTestRunner();
         runner.runSystemUnderTest();
 
