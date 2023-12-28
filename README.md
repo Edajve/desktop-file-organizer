@@ -20,6 +20,9 @@ passing `move` or `-m` with a file and a keyword, moves that file to a path base
 ### rename command
 passing `rename` or `-r` with a file name that is already on your desktop followed by the new name you want to name it
 Example `-r oldFileName newFileName`
+
+### exit
+use `exit` in CLI to stop program
      
 ## Libraries & Tools
 
