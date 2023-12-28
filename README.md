@@ -21,6 +21,9 @@ passing `move` or `-m` with a file and a keyword, moves that file to a path base
 passing `rename` or `-r` with a file name that is already on your desktop followed by the new name you want to name it
 Example `-r oldFileName newFileName`
 
+### search command
+passing `search` or `-s` allong with a string, and this will give back all files/directories that has that sequence of characters in its name. It will be looking out of your file directory that is configured in the program at `src/main/java/org/example/src/constants/PathConstants.java`. Variable called `ROOT_DIRECTORY`. Everything under that directory will be searched.
+
 ### exit
 use `exit` in CLI to stop program
      
