@@ -11,18 +11,18 @@ This application serves as an automated file organizer for the desktop. Based on
 When you initially run the program, it searches on your desktop and looks for all files that has a predefined string appended in the front of your file name. Each predefined string is mapped to a directory in your file system. You can configure this string to directory path at `src/main/java/org/example/src/constants/KeyWords.java`. When the system notices a file with an appended string, it automatically moves or deletes the directory/file depending on what the appended string is. This of course requires you to manually add the appended string with a following hyphen or you can use the rename functionality of this program to rename that as well.
 
 ### delete command
-passing `delete` or `-d` and following a file/directory name that you want to delete will purge that file or file/directory
-passing `delete all` or `-d all` should delete all files that are on the desktop
+passing `-delete` or `-d` and following a file/directory name that you want to delete will purge that file or file/directory
+passing `-delete all` or `-d all` should delete all files that are on the desktop
 
 ### move command
-passing `move` or `-m` with a file and a keyword, moves that file to a path based on the keyword
+passing `-move` or `-m` with a file and a keyword, moves that file to a path based on the keyword
 
 ### rename command
-passing `rename` or `-r` with a file name that is already on your desktop followed by the new name you want to name it
+passing `-rename` or `-r` with a file name that is already on your desktop followed by the new name you want to name it
 Example `-r oldFileName newFileName`
 
 ### search command
-passing `search` or `-s` allong with a string, and this will give back all files/directories that has that sequence of characters in its name. It will be looking out of your file directory that is configured in the program at `src/main/java/org/example/src/constants/PathConstants.java`. Variable called `ROOT_DIRECTORY`. Everything under that directory will be searched.
+passing `-search` or `-s` allong with a string, and this will give back all files/directories that has that sequence of characters in its name. It will be looking out of your file directory that is configured in the program at `src/main/java/org/example/src/constants/PathConstants.java`. Variable called `ROOT_DIRECTORY`. Everything under that directory will be searched.
 
 ### exit
 use `exit` in CLI to stop program
