@@ -5,38 +5,22 @@
 ## Overview
 This application serves as an automated file organizer for the desktop. Based on specific criteria like file prefix, it reorganizes files into an established directory structure. It operates within defined hours, provides notifications for exceptions, and offers flexibility through configuration files.
 
-## Features
+## Command instructions/How to run
 
-### 1. Desktop Monitoring
-- Continuously monitor the desktop for any changes to file names every 5 minutes.
+### keywords
+When you initially run the program, it searches on your desktop and looks for all files that has a predefined string appended in the front of your file name. Each predefined string is mapped to a directory in your file system. You can configure this string to directory path at `src/main/java/org/example/src/constants/KeyWords.java`. When the system notices a file with an appended string, it automatically moves or deletes the directory/file depending on what the appended string is. This of course requires you to manually add the appended string with a following hyphen or you can use the rename functionality of this program to rename that as well.
 
-### 2. File Movement Based on Prefix
-- On detecting a filename change, the program checks its prefix.
-- Uses a JSON configuration file to determine the correct destination based on the prefix.
+### delete command
+passing `delete` or `-d` and following a file/directory name that you want to delete will purge that file or file/directory
+passing `delete all` or `-d all` should delete all files that are on the desktop
 
-### 3. JSON Configuration
-- Use a JSON file to represent and configure the directory structure.
-- The structure reflects the directory hierarchy, including nested directories.
+### move command
+passing `move` or `-m` with a file and a keyword, moves that file to a path based on the keyword
 
-### 4. Exception Handling
-- Handles anomalies, such as an unrecognized prefix.
-- Sends native OS notifications in exception cases or email (haven't decided yet).
-
-### 5. Operating Hours
-- Only operates on weekdays from 9 AM to 5 PM.
-
-### 6. Logging and History
-- Logs activities, file moves, exceptions/errors, and notifications.
-
-### 7. Graceful Shutdown
-- Allows users to shut down the application without interrupting ongoing operations.
-
-### 8. Documentation
-- Includes instructions for setup, configuration modification, and expected naming criteria.
-
-### 9. Configuration Flexibility (Bonus)
-- Provides multiple methods to adjust settings, such as operating hours.
-
+### rename command
+passing `rename` or `-r` with a file name that is already on your desktop followed by the new name you want to name it
+Example `-r oldFileName newFileName`
+     
 ## Libraries & Tools
 
 ### Build System
