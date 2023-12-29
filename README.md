@@ -12,10 +12,17 @@ When you initially run the program, it searches on your desktop and looks for al
 
 ### delete command
 passing `-delete` or `-d` and following a file/directory name that you want to delete will purge that file or file/directory
+pass `-delete` or `-d` then multiple file names to delete multiple files
 passing `-delete all` or `-d all` should delete all files that are on the desktop
 
 ### move command
 passing `-move` or `-m` with a file and a keyword, moves that file to a path based on the keyword
+pass -move, then pass the name of the file you want to move, then pass the prefix of the destination
+  For example
+ * -move filename gkQ   -> this moves the file name called 'filename' to 04-videos-and-screenshots/01-Knowledge-Transfer/04-general-knowledge
+ * for moving multiple arguments just continue to pass the file name and keywords
+ * for example
+ * -move filename gkQ fileNameTwo ktI filenameThree tvB
 
 ### rename command
 passing `-rename` or `-r` with a file name that is already on your desktop followed by the new name you want to name it
